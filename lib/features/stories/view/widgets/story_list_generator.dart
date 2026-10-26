@@ -7,7 +7,6 @@ class StoryListGenerator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: EdgeInsets.only(left: 14.0),
       scrollDirection: Axis.horizontal,
       itemCount: 8,
       separatorBuilder: (context, index) => const SizedBox(width: 8.0),
