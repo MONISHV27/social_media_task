@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:social_media/common/widgets/user_circular_avatar_widget.dart';
+import 'package:social_media/core/user_manager/current_user_provider.dart';
+import 'package:social_media/features/posts/data/entities/post_entity.dart';
+import 'package:social_media/features/posts/data/repositories/post_like_repository.dart';
+import 'package:social_media/features/posts/data/repository_impl/post_like_repository_impl.dart';
+import 'package:social_media/features/posts/data/services/post_like_service.dart';
 import 'package:social_media/features/posts/view/widgets/post_interaction_widget.dart';
+import 'package:social_media/features/posts/view_model/like_view_model.dart';
+import 'package:social_media/features/posts/view_model/post_viewmodel.dart';
 
 class PostWidget extends StatelessWidget {
-  const PostWidget({super.key});
+  final PostEntity postInfo;
+  const PostWidget({super.key, required this.postInfo});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +30,7 @@ class PostWidget extends StatelessWidget {
                   children: [
                     const UserCircularAvatar(radius: 20.0),
                     Text(
-                      'User',
+                      postInfo.name,
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 16.0,
@@ -31,6 +40,9 @@ class PostWidget extends StatelessWidget {
                 ),
 
                 InkWell(
+                  onTap: () => context.read<PostViewmodel>().loadPosts(
+                    context.read<CurrentUser>().userId,
+                  ),
                   child: Icon(
                     Icons.more_vert_outlined,
                     color: const Color.fromARGB(221, 48, 48, 48),
@@ -58,8 +70,51 @@ class PostWidget extends StatelessWidget {
             child: Row(
               spacing: 12.0,
               children: [
-                const PostInteractionWidget(icon: Icons.favorite_outline),
-                const PostInteractionWidget(icon: Icons.comment),
+                MultiProvider(
+                  providers: [
+                    Provider<PostLikeRepository>(
+                      create: (_) =>
+                          PostLikeRepositoryImpl(service: PostLikeService()),
+                    ),
+                    ChangeNotifierProvider(
+                      create: (context) => LikeViewModel(
+                        userId: context.read<CurrentUser>().userId,
+                        postId: postInfo.id,
+                        id: postInfo.likeId,
+                        isLike: postInfo.isLiked,
+                        likes: postInfo.likes,
+                        repository: context.read<PostLikeRepository>(),
+                      ),
+                    ),
+                  ],
+                  child: Consumer<LikeViewModel>(
+                    builder: (context, value, child) {
+                      return Row(
+                        children: [
+                          PostInteractionWidget(
+                            onTap: () => context
+                                .read<LikeViewModel>()
+                                .onLikeInteraction(),
+                            color: (context.read<LikeViewModel>().isLike)
+                                ? Colors.red
+                                : null,
+                            icon: context.read<LikeViewModel>().isLike
+                                ? Icons.favorite
+                                : Icons.favorite_outline,
+                          ),
+                          Text(
+                            (context.read<LikeViewModel>().likes).toString(),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+                PostInteractionWidget(
+                  onTap: () =>
+                      context.read<LikeViewModel>().onLikeInteraction(),
+                  icon: Icons.comment,
+                ),
               ],
             ),
           ),

@@ -1,6 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:social_media/core/user_manager/current_user_provider.dart';
 import 'package:social_media/features/home/view/screens/home_screen.dart';
+import 'package:social_media/features/posts/data/repositories/post_repository.dart';
+import 'package:social_media/features/posts/data/repository_impl/post_repository_impl.dart';
+import 'package:social_media/features/posts/data/services/post_service.dart';
+import 'package:social_media/features/posts/view_model/post_viewmodel.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +41,21 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: HomeScreen(),
+      home: MultiProvider(
+        providers: [
+          Provider(create: (_) => CurrentUser(userId: 'Tf9PybclcoaQIGpwgLy6')),
+          Provider<PostRepository>(
+            create: (context) => PostRepositoryImpl(service: PostService()),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => PostViewmodel(
+              context.read<PostRepository>(),
+              userId: (context.read<CurrentUser>().userId),
+            ),
+          ),
+        ],
+        child: HomeScreen(),
+      ),
     );
   }
 }
