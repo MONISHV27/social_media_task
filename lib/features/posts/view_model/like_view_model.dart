@@ -1,6 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:social_media/features/posts/data/repositories/post_like_repository.dart';
 
+sealed class PostInteractionState {}
+
+final class PostInteractionProcessingState extends PostInteractionState {}
+
+final class PostInteractionInitialState extends PostInteractionState {}
+
 class LikeViewModel extends ChangeNotifier {
   bool isLike;
   int likes;
@@ -8,6 +14,9 @@ class LikeViewModel extends ChangeNotifier {
   String postId;
   final String userId;
   final PostLikeRepository _repository;
+  PostInteractionState _currentUiState = PostInteractionInitialState();
+
+  PostInteractionState get uiState => _currentUiState;
   LikeViewModel({
     required this.isLike,
     required this.likes,
@@ -18,6 +27,7 @@ class LikeViewModel extends ChangeNotifier {
   });
 
   Future<void> _onLikePost() async {
+    _currentUiState = PostInteractionProcessingState();
     final result = await _repository.likePost(postId: postId, userId: userId);
 
     result.fold(
@@ -47,11 +57,18 @@ class LikeViewModel extends ChangeNotifier {
   }
 
   Future<void> onLikeInteraction() async {
+    if (_currentUiState == PostInteractionProcessingState()) {
+      return;
+    }
+    _currentUiState = PostInteractionProcessingState();
+
     if (isLike) {
       await _disLikePost();
     } else {
       await _onLikePost();
     }
+    _currentUiState = PostInteractionInitialState();
+
     notifyListeners();
   }
 }
