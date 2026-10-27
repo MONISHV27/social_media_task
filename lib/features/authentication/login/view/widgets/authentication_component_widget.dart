@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media/common/widgets/action_button.dart';
@@ -28,7 +30,11 @@ class AuthenticationComponenetWidget extends StatelessWidget {
                 context.read<AuthenticationViewmodel>().storePhoneNo =
                     value ?? '',
 
-            validator: NumberValidator(isRequired: true, min: 10, max: 10),
+            validator: const NumberValidator(
+              isRequired: true,
+              min: 10,
+              max: 10,
+            ),
             label: 'Phone no',
             keyboardType: TextInputType.number,
           ),
@@ -36,7 +42,7 @@ class AuthenticationComponenetWidget extends StatelessWidget {
             onSave: (value) =>
                 context.read<AuthenticationViewmodel>().storePassword =
                     value ?? '',
-            validator: PasswordValidator(true),
+            validator: const PasswordValidator(true),
             label: 'Password',
           ),
           Builder(
@@ -100,10 +106,10 @@ class AuthenticationComponenetWidget extends StatelessWidget {
                       return (value is AuthProcessingState)
                           ? Positioned(
                               right: 16.0,
-                              child: SizedBox(
+                              child: const SizedBox(
                                 height: 20.0,
                                 width: 20.0,
-                                child: const CircularProgressIndicator(
+                                child: CircularProgressIndicator(
                                   color: Colors.white,
                                 ),
                               ),
@@ -128,11 +134,11 @@ class AuthenticationComponenetWidget extends StatelessWidget {
             },
             child: Text(
               'Click to ${isRegister ? 'Login' : 'Register'}',
-              style: TextStyle(
+              style: const TextStyle(
                 fontStyle: FontStyle.italic,
                 decoration: TextDecoration.underline,
-                decorationColor: const Color.fromARGB(255, 238, 117, 157),
-                color: const Color.fromARGB(255, 238, 117, 157),
+                decorationColor: Color.fromARGB(255, 238, 117, 157),
+                color: Color.fromARGB(255, 238, 117, 157),
                 fontWeight: FontWeight.w500,
                 fontSize: 16.0,
               ),
@@ -144,11 +150,13 @@ class AuthenticationComponenetWidget extends StatelessWidget {
   }
 
   void _navigateHome(BuildContext context, String userId) {
+    final random = Random().nextInt(999);
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         builder: (context) => Provider(
-          create: (_) => CurrentUser(userId: userId),
+          create: (_) => CurrentUser(userId: userId, userName: 'user$random'),
           child: const HomeScreen(),
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_media/common/theme/color_themes.dart';
 
 class UserCircularAvatar extends StatelessWidget {
   final double radius;
@@ -8,10 +9,7 @@ class UserCircularAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        border: Border.all(
-          color: const Color.fromARGB(255, 243, 78, 133),
-          width: 1.5,
-        ),
+        border: Border.all(color: ColorTheme.avatarBorderColor, width: 1.5),
         shape: BoxShape.circle,
         // color: Colors.red,
       ),

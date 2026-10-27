@@ -3,6 +3,8 @@ import 'package:social_media/common/widgets/form_builder_widgets/text_field_elem
 import 'package:social_media/core/enums/textfield_element_type_enum.dart';
 import 'package:social_media/core/validators/email_validator.dart';
 import 'package:social_media/core/validators/name_validator.dart';
+import 'package:social_media/core/validators/number_validator.dart';
+import 'package:social_media/core/validators/password_validator.dart';
 import 'package:social_media/core/validators/validator_manager.dart';
 import 'package:social_media/features/form_builder/data/form_element_manager/form_element.dart';
 
@@ -36,16 +38,22 @@ class TextFieldFormMetadata extends FormElement {
       ),
       label: json['label'] as String?,
       placeholder: json['placeholder'] as String?,
-      min: json['minLength'] as int?,
-      max: json['maxLength'] as int?,
+      min: json['min'] as int?,
+      max: json['max'] as int?,
       validator: switch (TextFieldElementTypeEnum.getType(
         json['field_type'] as String? ?? '',
       )) {
         TextFieldElementTypeEnum.mail => EmailValidator(isRequired),
         TextFieldElementTypeEnum.normal => NameValidator(
-          min: json['minLength'] as int?,
-          max: json['maxLength'] as int?,
+          min: json['min'] as int?,
+          max: json['max'] as int?,
           isRequired: isRequired,
+        ),
+        TextFieldElementTypeEnum.password => PasswordValidator(isRequired),
+        TextFieldElementTypeEnum.number => NumberValidator(
+          isRequired: isRequired,
+          min: json['min'] as int?,
+          max: json['max'] as int?,
         ),
         _ => null,
       },

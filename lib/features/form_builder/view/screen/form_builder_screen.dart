@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:social_media/common/theme/color_themes.dart';
 import 'package:social_media/common/widgets/action_button.dart';
 import 'package:social_media/features/form_builder/data/models/form_builder_json.dart';
 import 'package:social_media/features/form_builder/view_model/fomr_provider.dart';
@@ -11,13 +12,16 @@ class FormBuilderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Form builder'),
+        title: const Text(
+          'Social hint',
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
         shape: LinearBorder.bottom(
-          side: BorderSide(color: Color(0xFFE2E8F0), width: 2.0),
+          side: BorderSide(color: ColorTheme.borderColor, width: 2.0),
         ),
       ),
       body: Provider(
-        create: (context) => FormProvider(formBuilder: FormBuilderJson()),
+        create: (context) => FormProvider(formBuilder: const FormBuilderJson()),
 
         child: Form(
           autovalidateMode: AutovalidateMode.onUserInteractionIfError,
@@ -30,7 +34,9 @@ class FormBuilderScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: CustomScrollView(
                         slivers: [
-                          SliverToBoxAdapter(child: SizedBox(height: 16.0)),
+                          const SliverToBoxAdapter(
+                            child: SizedBox(height: 16.0),
+                          ),
                           SliverList.separated(
                             itemCount: (context
                                 .read<FormProvider>()
@@ -47,7 +53,7 @@ class FormBuilderScreen extends StatelessWidget {
                               );
                             },
                             separatorBuilder: (context, index) =>
-                                SizedBox(height: 8.0),
+                                const SizedBox(height: 8.0),
                           ),
                         ],
                       ),
@@ -67,7 +73,7 @@ class FormBuilderScreen extends StatelessWidget {
                           FocusManager.instance.primaryFocus?.unfocus();
                           if (Form.of(context).validate()) {
                             Form.of(context).save();
-
+                            // Retrieve the Form data
                             print(context.read<FormProvider>().formData);
                           }
                         },

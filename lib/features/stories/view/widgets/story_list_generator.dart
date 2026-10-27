@@ -11,7 +11,7 @@ class StoryListGenerator extends StatelessWidget {
       itemCount: 8,
       separatorBuilder: (context, index) => const SizedBox(width: 8.0),
       itemBuilder: (context, index) {
-        return UserStoryAvatarWidget(userLabel: 'Moni');
+        return const UserStoryAvatarWidget(userLabel: 'Moni');
       },
     );
   }

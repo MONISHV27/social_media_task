@@ -42,12 +42,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
               FocusManager.instance.primaryFocus?.unfocus(),
           onSaved: widget.onSave,
           validator: (value) => widget.validator?.validate(value),
-          keyboardType: widget
-              .keyboardType, // errorBuilder: (context, errorText) => FieldErrorText(text: errorText),
+          keyboardType: widget.keyboardType,
           controller: _controller,
-          // onSaved: (newValue) =>
-          //     (context.read<FormProvider>().onSave(widget.data.key, newValue)),
-          // validator: (value) => widget.data.validator?.validate(value),
           decoration: InputDecoration(
             errorBorder: FieldBorderStyle.borderStyle,
             focusedBorder: FieldBorderStyle.borderStyle,

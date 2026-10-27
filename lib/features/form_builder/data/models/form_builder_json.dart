@@ -1,5 +1,6 @@
 class FormBuilderJson {
-  final Map<String, dynamic> json = {
+  const FormBuilderJson();
+  final Map<String, dynamic> json = const {
     'fields': [
       {
         "element": "text_field",
@@ -7,8 +8,8 @@ class FormBuilderJson {
         "label": "Full Name",
         "placeholder": "Enter your full name",
         "required": true,
-        "minLength": 3,
-        "maxLength": 50,
+        "min": 3,
+        "max": 50,
         "key": 'email',
       },
       {

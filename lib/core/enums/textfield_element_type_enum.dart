@@ -1,14 +1,14 @@
 enum TextFieldElementTypeEnum {
   normal,
   mail,
-  phone,
+  number,
   password;
 
   factory TextFieldElementTypeEnum.getType(String type) {
     return switch (type) {
       'email' => TextFieldElementTypeEnum.mail,
       'password' => TextFieldElementTypeEnum.password,
-      'phone' => TextFieldElementTypeEnum.phone,
+      'number' => TextFieldElementTypeEnum.number,
       _ => TextFieldElementTypeEnum.normal,
     };
   }
