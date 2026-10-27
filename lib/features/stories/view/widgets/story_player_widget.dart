@@ -30,11 +30,11 @@ class _StoryPlayerWidgetState extends State<StoryPlayerWidget> {
     _playerController = VideoPlayerController.asset(widget.path)
       ..initialize()
           .then((_) {
-            print('--------------------initialized');
+            debugPrint('--------------------initialized');
             _playerController.play();
           })
           .onError((err, test) {
-            print('---------------------Error occured');
+            debugPrint('---------------------Error occured');
           });
   }
 
