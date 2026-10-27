@@ -12,8 +12,10 @@ class FormBuilderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.white,
         title: const Text(
-          'Social hint',
+          'Form builder',
           style: TextStyle(fontStyle: FontStyle.italic),
         ),
         shape: LinearBorder.bottom(
