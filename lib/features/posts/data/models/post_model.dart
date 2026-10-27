@@ -1,4 +1,5 @@
 import 'package:social_media/features/posts/data/entities/post_entity.dart';
+import 'package:social_media/features/posts/data/models/comment_model.dart';
 
 class PostModel {
   final String id;
@@ -7,6 +8,7 @@ class PostModel {
   final int likes;
   final int isLiked;
   final String? likeId;
+  final List<CommmentModel> comments;
 
   const PostModel({
     required this.id,
@@ -15,6 +17,7 @@ class PostModel {
     required this.likes,
     required this.isLiked,
     required this.likeId,
+    required this.comments,
   });
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
@@ -25,6 +28,9 @@ class PostModel {
       likes: json['likes'] as int,
       isLiked: json['isLiked'] as int,
       likeId: json['like_id'] as String?,
+      comments: List.from(
+        json['comments'] as List? ?? [],
+      ).map((e) => CommmentModel.fromJson(e)).toList(),
     );
   }
 
@@ -36,6 +42,7 @@ class PostModel {
       url: url,
       likes: likes,
       isLiked: isLiked == 1 ? true : false,
+      comments: comments.map((e) => e.toEntity()).toList(),
     );
   }
 }

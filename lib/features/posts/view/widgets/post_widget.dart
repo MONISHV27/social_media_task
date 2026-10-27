@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:social_media/common/theme/color_themes.dart';
 import 'package:social_media/common/widgets/user_circular_avatar_widget.dart';
 import 'package:social_media/core/user_manager/current_user_provider.dart';
+import 'package:social_media/core/utils/dialog_status_helper.dart';
 import 'package:social_media/features/posts/data/entities/post_entity.dart';
+import 'package:social_media/features/posts/data/repositories/comment_repository.dart';
 import 'package:social_media/features/posts/data/repositories/post_like_repository.dart';
+import 'package:social_media/features/posts/data/repository_impl/comment_repository_impl.dart';
 import 'package:social_media/features/posts/data/repository_impl/post_like_repository_impl.dart';
+import 'package:social_media/features/posts/data/services/comment_service.dart';
 import 'package:social_media/features/posts/data/services/post_like_service.dart';
 import 'package:social_media/features/posts/view/widgets/post_interaction_widget.dart';
+import 'package:social_media/features/posts/view_model/comment_view_model.dart';
 import 'package:social_media/features/posts/view_model/like_view_model.dart';
 import 'package:social_media/features/posts/view_model/post_viewmodel.dart';
 
@@ -17,13 +23,16 @@ class PostWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: Color(0xFFE2E8F0))),
+      decoration: const BoxDecoration(
+        border: Border(top: BorderSide(color: ColorTheme.borderColor)),
       ),
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 14.0,
+              vertical: 10.0,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -34,7 +43,7 @@ class PostWidget extends StatelessWidget {
                     const UserCircularAvatar(radius: 20.0),
                     Text(
                       postInfo.name,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 16.0,
                       ),
@@ -46,9 +55,9 @@ class PostWidget extends StatelessWidget {
                   onTap: () => context.read<PostViewmodel>().loadPosts(
                     context.read<CurrentUser>().userId,
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.more_vert_outlined,
-                    color: const Color.fromARGB(221, 48, 48, 48),
+                    color: Color.fromARGB(221, 48, 48, 48),
                   ),
                 ),
               ],
@@ -65,7 +74,7 @@ class PostWidget extends StatelessWidget {
             ),
           ),
           Container(
-            constraints: BoxConstraints(minHeight: 60),
+            constraints: const BoxConstraints(minHeight: 60),
             padding: const EdgeInsets.symmetric(
               horizontal: 10.0,
               vertical: 10.0,
@@ -122,10 +131,44 @@ class PostWidget extends StatelessWidget {
                         },
                       ),
                     ),
-                    PostInteractionWidget(
-                      onTap: () =>
-                          context.read<LikeViewModel>().onLikeInteraction(),
-                      icon: Icons.comment_outlined,
+                    MultiProvider(
+                      providers: [
+                        Provider<CommentRepository>(
+                          create: (context) =>
+                              CommentRepositoryImpl(service: CommentService()),
+                        ),
+                        ChangeNotifierProvider(
+                          create: (context) => CommentViewModel(
+                            comments: postInfo.comments,
+                            postId: postInfo.id,
+                            userName: context.read<CurrentUser>().userName,
+                            repository: context.read<CommentRepository>(),
+                          ),
+                        ),
+                      ],
+                      child: Builder(
+                        builder: (context) {
+                          return Row(
+                            spacing: 4.0,
+                            children: [
+                              PostInteractionWidget(
+                                onTap: () =>
+                                    DialogStatusHelper.openCommentSheet(
+                                      context,
+                                    ),
+                                icon: Icons.comment_outlined,
+                              ),
+                              Text(
+                                (context
+                                        .watch<CommentViewModel>()
+                                        .comments
+                                        .length)
+                                    .toString(),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),

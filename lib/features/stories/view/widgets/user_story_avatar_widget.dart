@@ -19,7 +19,7 @@ class UserStoryAvatarWidget extends StatelessWidget {
           children: [
             const UserCircularAvatar(radius: 30),
             if (isUpload)
-              PhysicalModel(
+              const PhysicalModel(
                 color: Colors.blue,
                 shape: BoxShape.circle,
                 child: Icon(Icons.add, size: 15, color: Colors.white),
@@ -29,7 +29,7 @@ class UserStoryAvatarWidget extends StatelessWidget {
 
         Text(
           userLabel,
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14.0),
+          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14.0),
         ),
       ],
     );

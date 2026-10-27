@@ -13,9 +13,15 @@ class PostService {
 
       final likeCollectionRef = FirebaseFirestore.instance
           .collection('posts')
-          .doc(doc.id) // Replace with actual parent doc ID
+          .doc(doc.id)
           .collection('likes');
 
+      final commentCollectionRef = FirebaseFirestore.instance
+          .collection('posts')
+          .doc(doc.id)
+          .collection('comments');
+
+      // Like Collection  doc reference manipulation
       final int likeNos = (await likeCollectionRef.count().get()).count ?? 0;
       final likedDocRec = await likeCollectionRef
           .where('liked_by', isEqualTo: userId)
@@ -30,6 +36,12 @@ class PostService {
         'likes': likeNos,
         'isLiked': isExist ? 1 : 0,
       });
+      // Comment Collection  doc reference manipulation
+
+      final comments = (await commentCollectionRef.get()).docs
+          .map((e) => (e.data()))
+          .toList();
+      postInfo.addAll({'comments': comments});
       posts.add(PostModel.fromJson(postInfo));
     }
     return posts;

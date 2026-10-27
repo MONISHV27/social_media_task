@@ -16,41 +16,54 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          spacing: 24.0,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Text('Welcome', style: TextStyle(fontSize: 24.0)),
-            Text(
-              'Welcome, Create a Account to continue!',
-              style: TextStyle(
-                color: const Color.fromARGB(255, 131, 129, 130),
-                fontSize: 18.0,
-                fontWeight: FontWeight.w500,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
+      resizeToAvoidBottomInset: true,
 
-            MultiProvider(
-              providers: [
-                Provider<LoginRepository>(
-                  create: (context) =>
-                      LoginRepositoryImpl(service: LoginService()),
-                ),
-                Provider<RegisterRepository>(
-                  create: (context) =>
-                      RegisterRepositoryImpl(service: RegisterService()),
-                ),
-                Provider(
-                  create: (context) => AuthenticationViewmodel(
-                    loginRepository: context.read<LoginRepository>(),
-                    registerRepository: context.read<RegisterRepository>(),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+
+              child: Column(
+                spacing: 24.0,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Text('Welcome', style: TextStyle(fontSize: 24.0)),
+                  const Text(
+                    'Welcome, Create a Account to continue!',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 131, 129, 130),
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w500,
+                      fontStyle: FontStyle.italic,
+                    ),
                   ),
-                ),
-              ],
-              child: const AuthenticationComponenetWidget(isRegister: true),
+
+                  MultiProvider(
+                    providers: [
+                      Provider<LoginRepository>(
+                        create: (context) =>
+                            LoginRepositoryImpl(service: LoginService()),
+                      ),
+                      Provider<RegisterRepository>(
+                        create: (context) =>
+                            RegisterRepositoryImpl(service: RegisterService()),
+                      ),
+                      Provider(
+                        create: (context) => AuthenticationViewmodel(
+                          loginRepository: context.read<LoginRepository>(),
+                          registerRepository: context
+                              .read<RegisterRepository>(),
+                        ),
+                      ),
+                    ],
+                    child: const AuthenticationComponenetWidget(
+                      isRegister: true,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

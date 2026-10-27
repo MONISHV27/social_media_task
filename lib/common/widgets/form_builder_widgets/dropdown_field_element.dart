@@ -30,10 +30,10 @@ class _DropdownFieldElementState extends State<DropdownFieldElement> {
               const SizedBox(height: SpacingConstants.formFieldLabelSpacing),
 
               DropdownMenu<String>(
+                requestFocusOnTap: false,
                 width: double.infinity,
                 // initialSelection: selectedItem,
                 hintText: 'Select a ${widget.metaData.label}',
-                requestFocusOnTap: true,
                 enableSearch: true, // Enables searching text within the menu
                 onSelected: (String? newValue) {
                   // setState(() {

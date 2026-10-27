@@ -1,5 +1,5 @@
 class CurrentUser {
   final String userId;
-
-  const CurrentUser({required this.userId});
+  final String userName;
+  const CurrentUser({required this.userId, required this.userName});
 }

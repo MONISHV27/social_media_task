@@ -7,4 +7,10 @@ class FieldBorderStyle {
       // color: TextFieldColorSchemePattern.textFieldBorderColor,
     ),
   );
+
+  static const commentFieldStyle = OutlineInputBorder(
+    borderSide: BorderSide(
+      // color: TextFieldColorSchemePattern.textFieldBorderColor,
+    ),
+  );
 }

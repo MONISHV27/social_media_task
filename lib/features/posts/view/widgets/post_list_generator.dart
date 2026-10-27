@@ -12,18 +12,18 @@ class PostListGenerator extends StatelessWidget {
       selector: (context, value) => value.postState,
       builder: (context, data, child) {
         return switch (data) {
-          PostFailureState() => SliverToBoxAdapter(
+          PostFailureState() => const SliverToBoxAdapter(
             child: Center(child: CircularProgressIndicator()),
           ),
           PostSuccessState() => SliverList.separated(
             itemCount: data.posts.length,
-            separatorBuilder: (context, index) => SizedBox(width: 8.0),
+            separatorBuilder: (context, index) => const SizedBox(width: 8.0),
             itemBuilder: (context, index) {
               return PostWidget(postInfo: data.posts[index]);
             },
           ),
 
-          PostLoadingState() => SliverToBoxAdapter(
+          PostLoadingState() => const SliverToBoxAdapter(
             child: Center(child: CircularProgressIndicator()),
           ),
         };

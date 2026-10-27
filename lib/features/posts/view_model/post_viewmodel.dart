@@ -2,6 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:social_media/features/posts/data/entities/post_entity.dart';
 import 'package:social_media/features/posts/data/repositories/post_repository.dart';
 
+sealed class PostUIState {
+  const PostUIState();
+}
+
+final class PostLoadingState extends PostUIState {}
+
+final class PostSuccessState extends PostUIState {
+  final List<PostEntity> posts;
+  const PostSuccessState({required this.posts});
+}
+
+final class PostFailureState extends PostUIState {}
+
 class PostViewmodel extends ChangeNotifier {
   final PostRepository _repository;
   final String userId;
@@ -26,16 +39,3 @@ class PostViewmodel extends ChangeNotifier {
     );
   }
 }
-
-sealed class PostUIState {
-  const PostUIState();
-}
-
-final class PostLoadingState extends PostUIState {}
-
-final class PostSuccessState extends PostUIState {
-  final List<PostEntity> posts;
-  const PostSuccessState({required this.posts});
-}
-
-final class PostFailureState extends PostUIState {}
