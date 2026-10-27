@@ -1,4 +1,3 @@
-import 'package:social_media/features/posts/data/entities/post_entity.dart';
 import 'package:social_media/features/posts/data/models/comment_model.dart';
 import 'package:social_media/features/stories/data/entities/story_entity.dart';
 
