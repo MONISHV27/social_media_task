@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 abstract class FormElement {
-  const FormElement();
+  final String key;
+  const FormElement({required this.key});
   Widget buildWidgetElement();
 }
