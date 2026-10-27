@@ -1,10 +1,10 @@
 import 'package:dart_either/dart_either.dart';
 import 'package:social_media/core/services/failure_result.dart';
+import 'package:social_media/core/services/like_service_manager.dart';
 import 'package:social_media/features/posts/data/repositories/post_like_repository.dart';
-import 'package:social_media/features/posts/data/services/post_like_service.dart';
 
 class PostLikeRepositoryImpl implements PostLikeRepository {
-  final PostLikeService service;
+  final LikeServiceManager service;
   const PostLikeRepositoryImpl({required this.service});
   @override
   Future<Either<FailureResult, String>> likePost({

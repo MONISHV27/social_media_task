@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:social_media/core/services/like_service_manager.dart';
 
-class PostLikeService {
+class PostLikeService implements LikeServiceManager {
+  @override
   Future<String> updateLikePost({
     required String postId,
     required String userId,
@@ -14,6 +16,7 @@ class PostLikeService {
     return docRef.id;
   }
 
+  @override
   Future<void> deletePostLike({
     required String likeId,
     required String postId,

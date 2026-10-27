@@ -66,10 +66,12 @@ class PostWidget extends StatelessWidget {
           AspectRatio(
             aspectRatio: 1.0,
             child: SizedBox(
-              child: Image.network(
+              child: Image.asset(
                 width: double.infinity,
                 fit: BoxFit.fill,
-                'https://picsum.photos/250?image=9',
+                (postInfo.url != null
+                    ? 'assets/images/${postInfo.url}'
+                    : 'assets/images/img_01.jpg'),
               ),
             ),
           ),
@@ -86,7 +88,7 @@ class PostWidget extends StatelessWidget {
               children: [
                 Row(
                   spacing: 12.0,
-
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     MultiProvider(
                       providers: [
@@ -108,7 +110,9 @@ class PostWidget extends StatelessWidget {
                       ],
                       child: Consumer<LikeViewModel>(
                         builder: (context, value, child) {
-                          return Row(
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            spacing: 4.0,
                             children: [
                               PostInteractionWidget(
                                 onTap: () => context
@@ -121,10 +125,12 @@ class PostWidget extends StatelessWidget {
                                     ? Icons.favorite
                                     : Icons.favorite_outline,
                               ),
-
+                              // if (context.read<LikeViewModel>().likes != 0)
                               Text(
-                                (context.read<LikeViewModel>().likes)
-                                    .toString(),
+                                'Likes ${(context.read<LikeViewModel>().likes == 0 ? '' : context.read<LikeViewModel>().likes)}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           );
@@ -148,22 +154,31 @@ class PostWidget extends StatelessWidget {
                       ],
                       child: Builder(
                         builder: (context) {
-                          return Row(
+                          return Column(
                             spacing: 4.0,
                             children: [
-                              PostInteractionWidget(
-                                onTap: () =>
-                                    DialogStatusHelper.openCommentSheet(
-                                      context,
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: 4.0,
+                                children: [
+                                  PostInteractionWidget(
+                                    onTap: () =>
+                                        DialogStatusHelper.openCommentSheet(
+                                          context,
+                                        ),
+                                    icon: Icons.comment_outlined,
+                                  ),
+                                  Text(
+                                    '${(context.watch<CommentViewModel>().comments.length)}',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                icon: Icons.comment_outlined,
+                                  ),
+                                ],
                               ),
-                              Text(
-                                (context
-                                        .watch<CommentViewModel>()
-                                        .comments
-                                        .length)
-                                    .toString(),
+                              const Text(
+                                'Comment',
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ],
                           );

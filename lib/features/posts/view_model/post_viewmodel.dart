@@ -13,7 +13,10 @@ final class PostSuccessState extends PostUIState {
   const PostSuccessState({required this.posts});
 }
 
-final class PostFailureState extends PostUIState {}
+final class PostFailureState extends PostUIState {
+  final String message;
+  const PostFailureState({required this.message});
+}
 
 class PostViewmodel extends ChangeNotifier {
   final PostRepository _repository;
@@ -29,7 +32,7 @@ class PostViewmodel extends ChangeNotifier {
     final result = await _repository.getPosts(userId);
     result.fold(
       ifLeft: (failure) {
-        _currentState = PostFailureState();
+        _currentState = PostFailureState(message: failure.message);
         notifyListeners();
       },
       ifRight: (data) {
