@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media/core/user_manager/current_user_provider.dart';
+import 'package:social_media/features/authentication/login/view/screens/login_screen.dart';
 import 'package:social_media/features/home/view/widgets/home_content_section.dart';
 import 'package:social_media/features/posts/data/repositories/post_repository.dart';
 import 'package:social_media/features/posts/data/repository_impl/post_repository_impl.dart';
@@ -14,14 +15,26 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Social'),
+        actionsPadding: EdgeInsets.only(right: 14.0),
+        actions: [
+          InkWell(
+            onTap: () => Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginScreen()),
+            ),
+            child: Icon(Icons.logout_outlined),
+          ),
+        ],
+        title: Text(
+          'Social hint',
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
         shape: LinearBorder.bottom(
           side: BorderSide(color: Color(0xFFE2E8F0), width: 2.0),
         ),
       ),
       body: MultiProvider(
         providers: [
-          Provider(create: (_) => CurrentUser(userId: 'Tf9PybclcoaQIGpwgLy6')),
           Provider<PostRepository>(
             create: (context) => PostRepositoryImpl(service: PostService()),
           ),

@@ -16,11 +16,14 @@ class PostWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: Color(0xFFE2E8F0))),
+      ),
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+            padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -62,58 +65,74 @@ class PostWidget extends StatelessWidget {
             ),
           ),
           Container(
+            constraints: BoxConstraints(minHeight: 60),
             padding: const EdgeInsets.symmetric(
               horizontal: 10.0,
               vertical: 10.0,
             ),
 
             child: Row(
-              spacing: 12.0,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                MultiProvider(
-                  providers: [
-                    Provider<PostLikeRepository>(
-                      create: (_) =>
-                          PostLikeRepositoryImpl(service: PostLikeService()),
-                    ),
-                    ChangeNotifierProvider(
-                      create: (context) => LikeViewModel(
-                        userId: context.read<CurrentUser>().userId,
-                        postId: postInfo.id,
-                        id: postInfo.likeId,
-                        isLike: postInfo.isLiked,
-                        likes: postInfo.likes,
-                        repository: context.read<PostLikeRepository>(),
+                Row(
+                  spacing: 12.0,
+
+                  children: [
+                    MultiProvider(
+                      providers: [
+                        Provider<PostLikeRepository>(
+                          create: (_) => PostLikeRepositoryImpl(
+                            service: PostLikeService(),
+                          ),
+                        ),
+                        ChangeNotifierProvider(
+                          create: (context) => LikeViewModel(
+                            userId: context.read<CurrentUser>().userId,
+                            postId: postInfo.id,
+                            id: postInfo.likeId,
+                            isLike: postInfo.isLiked,
+                            likes: postInfo.likes,
+                            repository: context.read<PostLikeRepository>(),
+                          ),
+                        ),
+                      ],
+                      child: Consumer<LikeViewModel>(
+                        builder: (context, value, child) {
+                          return Row(
+                            children: [
+                              PostInteractionWidget(
+                                onTap: () => context
+                                    .read<LikeViewModel>()
+                                    .onLikeInteraction(),
+                                color: (context.read<LikeViewModel>().isLike)
+                                    ? Colors.red
+                                    : null,
+                                icon: context.read<LikeViewModel>().isLike
+                                    ? Icons.favorite
+                                    : Icons.favorite_outline,
+                              ),
+
+                              Text(
+                                (context.read<LikeViewModel>().likes)
+                                    .toString(),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ),
+                    PostInteractionWidget(
+                      onTap: () =>
+                          context.read<LikeViewModel>().onLikeInteraction(),
+                      icon: Icons.comment_outlined,
+                    ),
                   ],
-                  child: Consumer<LikeViewModel>(
-                    builder: (context, value, child) {
-                      return Row(
-                        children: [
-                          PostInteractionWidget(
-                            onTap: () => context
-                                .read<LikeViewModel>()
-                                .onLikeInteraction(),
-                            color: (context.read<LikeViewModel>().isLike)
-                                ? Colors.red
-                                : null,
-                            icon: context.read<LikeViewModel>().isLike
-                                ? Icons.favorite
-                                : Icons.favorite_outline,
-                          ),
-                          Text(
-                            (context.read<LikeViewModel>().likes).toString(),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
                 ),
                 PostInteractionWidget(
                   onTap: () =>
                       context.read<LikeViewModel>().onLikeInteraction(),
-                  icon: Icons.comment,
+                  icon: Icons.bookmark_border_outlined,
                 ),
               ],
             ),
