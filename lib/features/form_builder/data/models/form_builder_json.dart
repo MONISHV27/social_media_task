@@ -4,9 +4,6 @@ class FormBuilderJson {
       {
         "element": "text_field",
         "field_type": 'email',
-
-        // "id": "full_name",
-        // "type": "text",
         "label": "Full Name",
         "placeholder": "Enter your full name",
         "required": true,
@@ -16,10 +13,7 @@ class FormBuilderJson {
       },
       {
         "element": "text_field",
-        "field_type": 'number',
-
-        // "id": "age",
-        // "type": "number",
+        "field_type": 'normal',
         "label": "Age",
         "required": true,
         "min": 18,
@@ -28,8 +22,6 @@ class FormBuilderJson {
       },
       {
         "element": "checkbox_multi",
-        // "id": "skills",
-        // "type": "checkbox",
         "label": "Skills",
         "required": true,
         "options": ["Flutter", "Android", "iOS", "Firebase", "Node.js"],
@@ -37,7 +29,6 @@ class FormBuilderJson {
       },
       {
         "element": "slider",
-
         "label": "Years of Experience",
         "min": 0,
         "max": 15,
@@ -53,7 +44,6 @@ class FormBuilderJson {
       },
       {
         "element": "dropdown",
-
         "label": "Country",
         "required": true,
         "options": ["India", "USA", "Canada"],

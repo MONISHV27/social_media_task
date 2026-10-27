@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_media/common/constants/spacing_constants.dart';
+import 'package:social_media/common/widgets/form_builder_widgets/form_field_label_widget.dart';
 import 'package:social_media/features/form_builder/data/form_element_models/radio_field_metadata.dart';
 import 'package:social_media/features/form_builder/view/widgets/form_field_mapper.dart';
 
@@ -42,7 +43,7 @@ class _RadioFieldElementState extends State<RadioFieldElement> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisSize: MainAxisSize.min, // Tell the column
                     children: <Widget>[
-                      Text(widget.metaData.label),
+                      FormFieldLabelWidget(text: widget.metaData.label),
                       Wrap(
                         children: [
                           ...List.generate(widget.metaData.options.length, (
@@ -62,7 +63,7 @@ class _RadioFieldElementState extends State<RadioFieldElement> {
                 );
               },
             ),
-            SizedBox(height: SpacingConstants.formFieldErrorSpacing),
+            const SizedBox(height: SpacingConstants.formFieldErrorSpacing),
 
             if (state.hasError) FieldErrorText(text: state.errorText ?? ''),
           ],
