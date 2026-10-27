@@ -29,16 +29,14 @@ class AuthenticationViewmodel extends CredentialHash {
 
     result.fold(
       ifLeft: (failure) {
-        stateNotifier.value = AuthFailureState(
-          message: 'Something went wrong!',
-        );
+        stateNotifier.value = AuthFailureState(message: failure.message);
       },
       ifRight: (data) {
         if (data == null) {
           stateNotifier.value = AuthFailureState();
           return;
         }
-        stateNotifier.value = AuthSuccessState(userId: data ?? '');
+        stateNotifier.value = AuthSuccessState(userId: data);
       },
     );
     return stateNotifier.value;

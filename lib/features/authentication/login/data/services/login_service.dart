@@ -11,7 +11,9 @@ class LoginService {
         .limit(1)
         .get();
 
-    if (querySnapshot.docs.isEmpty) {}
+    if (querySnapshot.docs.isEmpty) {
+      throw AuthException(message: 'Account not exist!');
+    }
 
     final userData = querySnapshot.docs.first.data();
 

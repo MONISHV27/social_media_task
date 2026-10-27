@@ -17,6 +17,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         actionsPadding: const EdgeInsets.only(right: 14.0),
         actions: [
           InkWell(
