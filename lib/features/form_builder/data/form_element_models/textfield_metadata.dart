@@ -55,7 +55,6 @@ class TextFieldFormMetadata extends FormElement {
           min: json['min'] as int?,
           max: json['max'] as int?,
         ),
-        _ => null,
       },
     );
   }
