@@ -39,6 +39,7 @@ dependencies:
   provider: ^6.1.5+1
   dart_either: ^2.5.0
   video_player: ^2.14.1
+  bcrypt: ^1.2.0
 
 dev_dependencies:
   flutter_test:

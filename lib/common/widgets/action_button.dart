@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 class ActionButton extends StatelessWidget {
   final VoidCallback onTap;
   final String label;
-  const ActionButton({super.key, required this.onTap, required this.label});
+  final Color color;
+  const ActionButton({
+    super.key,
+    required this.onTap,
+    required this.label,
+    this.color = const Color.fromARGB(255, 247, 160, 30),
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +21,7 @@ class ActionButton extends StatelessWidget {
         children: [
           Expanded(
             child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 247, 160, 30),
-              ),
+              style: ElevatedButton.styleFrom(backgroundColor: color),
               onPressed: onTap,
               child: Text(
                 label,
