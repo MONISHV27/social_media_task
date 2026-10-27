@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_media/common/constants/spacing_constants.dart';
+import 'package:social_media/common/widgets/form_builder_widgets/form_field_label_widget.dart';
 import 'package:social_media/common/widgets/form_builder_widgets/radio_field_element.dart';
 import 'package:social_media/features/form_builder/data/form_element_models/checkbox_multi_field_metadata.dart';
 import 'package:social_media/features/form_builder/view/widgets/form_field_mapper.dart';
@@ -70,7 +71,8 @@ class _CheckboxMultiFieldElementState extends State<CheckboxMultiFieldElement> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           DropdownButtonFormField(
-            hint: Text(widget.metaData.label ?? ''),
+            hint: FormFieldLabelWidget(text: widget.metaData.label ?? ''),
+
             onChanged: (x) {},
             items: widget.metaData.options.map((e) {
               return DropdownMenuItem(
@@ -100,9 +102,7 @@ class _CheckboxMultiFieldElementState extends State<CheckboxMultiFieldElement> {
                               onChanged: (bool? checked) {},
                             ),
                           ),
-                          const SizedBox(
-                            width: 8,
-                          ), // Small spacing between checkbox and text
+                          const SizedBox(width: 8),
                           Text(e, style: const TextStyle(fontSize: 16)),
                         ],
                       ),
@@ -114,15 +114,15 @@ class _CheckboxMultiFieldElementState extends State<CheckboxMultiFieldElement> {
           ),
 
           if (selected.isNotEmpty) ...{
-            SizedBox(height: SpacingConstants.formFieldErrorSpacing),
+            const SizedBox(height: SpacingConstants.formFieldErrorSpacing),
 
             Text(
               selected.isEmpty ? '' : 'Select items: ${selected.join(' , ')}',
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
           },
 
-          SizedBox(height: SpacingConstants.formFieldErrorSpacing),
+          const SizedBox(height: SpacingConstants.formFieldErrorSpacing),
           if (state.hasError) FieldErrorText(text: state.errorText ?? ''),
         ],
       ),

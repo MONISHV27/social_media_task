@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:social_media/core/user_manager/current_user_provider.dart';
 import 'package:social_media/features/home/view/widgets/home_content_section.dart';
+import 'package:social_media/features/posts/data/repositories/post_repository.dart';
+import 'package:social_media/features/posts/data/repository_impl/post_repository_impl.dart';
+import 'package:social_media/features/posts/data/services/post_service.dart';
+import 'package:social_media/features/posts/view_model/post_viewmodel.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,7 +19,21 @@ class HomeScreen extends StatelessWidget {
           side: BorderSide(color: Color(0xFFE2E8F0), width: 2.0),
         ),
       ),
-      body: const HomeContentSection(),
+      body: MultiProvider(
+        providers: [
+          Provider(create: (_) => CurrentUser(userId: 'Tf9PybclcoaQIGpwgLy6')),
+          Provider<PostRepository>(
+            create: (context) => PostRepositoryImpl(service: PostService()),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => PostViewmodel(
+              context.read<PostRepository>(),
+              userId: (context.read<CurrentUser>().userId),
+            ),
+          ),
+        ],
+        child: const HomeContentSection(),
+      ),
     );
   }
 }
