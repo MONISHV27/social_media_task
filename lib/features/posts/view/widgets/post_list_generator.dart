@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media/common/theme/color_themes.dart';
 import 'package:social_media/features/posts/view/widgets/post_widget.dart';
@@ -13,14 +14,14 @@ class PostListGenerator extends StatelessWidget {
       selector: (context, value) => value.postState,
       builder: (context, data, child) {
         return switch (data) {
-          PostFailureState() => SliverFillRemaining(
-            child: Center(
-              child: Text(
-                data.message,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ),
-          ),
+          //   PostFailureState() => SliverFillRemaining(
+          //     child: Center(
+          //       child: Text(
+          //         data.message,
+          //         style: const TextStyle(fontWeight: FontWeight.w500),
+          //       ),
+          //     ),
+          //   ),
           PostSuccessState() => SliverList.separated(
             itemCount: data.posts.length,
             separatorBuilder: (context, index) => const SizedBox(width: 8.0),
@@ -28,12 +29,23 @@ class PostListGenerator extends StatelessWidget {
               return PostWidget(postInfo: data.posts[index]);
             },
           ),
+          // _ => const SliverFillRemaining(
+          //   child: Center(
+          //     child: SizedBox(height: 100, width: 100, child: Icon(Icons.abc)),
 
-          PostLoadingState() => const SliverFillRemaining(
+          //     //  CircularProgressIndicator(
+          //     //   color: ColorTheme.avatarBorderColor,
+          //     // ),
+          //   ),
+
+          // PostLoadingState()
+          _ => const SliverFillRemaining(
             child: Center(
-              child: CircularProgressIndicator(
-                color: ColorTheme.avatarBorderColor,
-              ),
+              child: SpinKitFadingCircle(color: Color(0xFF828282), size: 50.0),
+
+              //  CircularProgressIndicator(
+              //   color: ColorTheme.avatarBorderColor,
+              // ),
             ),
           ),
         };

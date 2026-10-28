@@ -17,26 +17,21 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white, //Color(0XFFEEEEEE)
-      resizeToAvoidBottomInset: true,
+      // resizeToAvoidBottomInset: true,
       body: CustomScrollView(
+        // reverse: true,
         slivers: [
           SliverFillRemaining(
-            hasScrollBody: false,
-            child: Column(
+            // hasScrollBody: false,
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+
               children: [
-                const AuthHeaderWidget(),
+                Positioned(
+                  top: 0.0,
+                  child: const AuthHeaderWidget(isRegister: false),
+                ),
 
-                SizedBox(height: MediaQuery.sizeOf(context).height * 0.05),
-
-                // const Text(
-                //   'Welcome, Log in to continue!',
-                //   style: TextStyle(
-                //     color: Color.fromARGB(255, 131, 129, 130),
-                //     fontSize: 18.0,
-                //     fontWeight: FontWeight.w500,
-                //     fontStyle: FontStyle.italic,
-                //   ),
-                // ),
                 MultiProvider(
                   providers: [
                     Provider<LoginRepository>(

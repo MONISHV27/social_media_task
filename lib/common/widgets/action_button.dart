@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ActionButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -40,14 +41,14 @@ class ActionButton extends StatelessWidget {
 }
 
 class ActionGradientButton extends StatelessWidget {
-  final VoidCallback onTap;
   final String label;
   final Color color;
+  final bool isLoading;
   const ActionGradientButton({
     super.key,
-    required this.onTap,
     required this.label,
     this.color = const Color.fromARGB(255, 247, 160, 30),
+    this.isLoading = false,
   });
 
   @override
@@ -55,30 +56,32 @@ class ActionGradientButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: 50,
-      child: GestureDetector(
-        onTap: onTap,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25.0),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                // Color(0XFFFFF6B7), Color(0XFFF6416C),
-                ////
-                // Color(0XFFEF629A),
-                // Color(0XFFEECDA1),
-                // Color(0XFFF1A7F1),
-                // Color(0XFFFAD0C4),
-                Color(0xFFFF5F6D), Color(0XFFFFc371),
-              ],
-            ),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25.0),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              // Color(0XFFFFF6B7), Color(0XFFF6416C),
+              ////
+              // Color(0XFFEF629A),
+              // Color(0XFFEECDA1),
+              // Color(0XFFF1A7F1),
+              // Color(0XFFFAD0C4),
+              Color(0xFFFF5F6D), Color(0XFFFFc371),
+            ],
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
 
-            children: [
+          children: [
+            if (isLoading)
+              const SpinKitFadingCircle(color: Colors.white, size: 40),
+
+            if (!isLoading)
               Text(
                 label,
                 style: TextStyle(
@@ -87,8 +90,7 @@ class ActionGradientButton extends StatelessWidget {
                   fontSize: 16.0,
                 ),
               ),
-            ],
-          ),
+          ],
         ),
       ),
     );
