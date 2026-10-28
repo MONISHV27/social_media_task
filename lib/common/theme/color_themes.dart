@@ -9,4 +9,5 @@ class ColorTheme {
     247,
     247,
   );
+  static const Color textFieldLabelColor = Color(0xFF868f96);
 }
