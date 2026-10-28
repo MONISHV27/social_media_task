@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media/common/constants/spacing_constants.dart';
 import 'package:social_media/common/theme/color_themes.dart';
@@ -23,43 +24,55 @@ class AuthenticationComponenetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       autovalidateMode: AutovalidateMode.onUserInteractionIfError,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            CustomTextField(
-              onSave: (value) =>
-                  context.read<AuthenticationViewmodel>().storePhoneNo =
-                      value ?? '',
+      child: SizedBox(
+        height: MediaQuery.sizeOf(context).height * 0.68,
 
-              validator: const NumberValidator(
-                isRequired: true,
-                min: 10,
-                max: 10,
-              ),
-              label: 'Phone no',
-              keyboardType: TextInputType.number,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24.0),
+              topRight: Radius.circular(24.0),
             ),
-            const SizedBox(height: SpacingConstants.authTextFieldGap),
-            CustomTextField(
-              onSave: (value) =>
-                  context.read<AuthenticationViewmodel>().storePassword =
-                      value ?? '',
-              validator: const PasswordValidator(true),
-              label: 'Password',
-            ),
-            const SizedBox(height: SpacingConstants.authTextFieldGap * 2),
-
-            Column(
-              spacing: 16.0,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Builder(
-                  builder: (context) {
-                    return Stack(
-                      alignment: Alignment.centerRight,
-                      children: [
-                        ActionGradientButton(
+                const SizedBox(height: SpacingConstants.authTextFieldGap * 2),
+
+                CustomTextField(
+                  prefixIcon: Icons.phone,
+                  onSave: (value) =>
+                      context.read<AuthenticationViewmodel>().storePhoneNo =
+                          value ?? '',
+
+                  validator: const NumberValidator(
+                    isRequired: true,
+                    min: 10,
+                    max: 10,
+                  ),
+                  label: 'Phone no',
+                  keyboardType: TextInputType.number,
+                ),
+                const SizedBox(height: SpacingConstants.authTextFieldGap),
+                CustomTextField(
+                  prefixIcon: Icons.lock_open_outlined,
+                  onSave: (value) =>
+                      context.read<AuthenticationViewmodel>().storePassword =
+                          value ?? '',
+                  validator: const PasswordValidator(true),
+                  label: 'Password',
+                ),
+                const SizedBox(height: SpacingConstants.authTextFieldGap * 2),
+
+                Column(
+                  spacing: 16.0,
+                  children: [
+                    Builder(
+                      builder: (context) {
+                        return GestureDetector(
                           onTap: () async {
                             if (context
                                     .read<AuthenticationViewmodel>()
@@ -104,68 +117,59 @@ class AuthenticationComponenetWidget extends StatelessWidget {
                               }
                             }
                           },
-                          label: isRegister ? 'Register' : 'Login',
+                          child: ValueListenableBuilder(
+                            valueListenable: context
+                                .read<AuthenticationViewmodel>()
+                                .stateNotifier,
+                            builder: (context, value, child) {
+                              return ActionGradientButton(
+                                isLoading: (value is AuthProcessingState),
+                                label: isRegister ? 'Register' : 'Login',
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      spacing: 8.0,
+                      children: [
+                        Text(
+                          (isRegister)
+                              ? 'Already have an account?'
+                              : 'Don\'t have an account?',
+                          style: const TextStyle(
+                            fontStyle: FontStyle.italic,
+                            color: ColorTheme.textFieldLabelColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.0,
+                          ),
                         ),
 
-                        ValueListenableBuilder(
-                          valueListenable: context
-                              .read<AuthenticationViewmodel>()
-                              .stateNotifier,
-                          builder: (context, value, child) {
-                            return (value is AuthProcessingState)
-                                ? Positioned(
-                                    right: 16.0,
-                                    child: const SizedBox(
-                                      height: 20.0,
-                                      width: 20.0,
-                                      child: CircularProgressIndicator(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  )
-                                : const SizedBox.shrink();
-                          },
+                        GestureDetector(
+                          onTap: () =>
+                              _navigateToAuthScreen(isRegister, context),
+                          child: Text(
+                            (isRegister) ? 'Log in' : 'Sign in',
+                            style: const TextStyle(
+                              decoration: TextDecoration.underline,
+                              decorationColor: Color(0xFFFF5F6D),
+                              color: Color(0xFFFF5F6D),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16.0,
+                            ),
+                          ),
                         ),
+                        // ),
                       ],
-                    );
-                  },
-                ),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: 8.0,
-                  children: [
-                    Text(
-                      (isRegister)
-                          ? 'Already have an account?'
-                          : 'Don\'t have an account?',
-                      style: const TextStyle(
-                        fontStyle: FontStyle.italic,
-                        color: ColorTheme.textFieldLabelColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.0,
-                      ),
                     ),
-
-                    GestureDetector(
-                      onTap: () => _navigateToAuthScreen(isRegister, context),
-                      child: Text(
-                        (isRegister) ? 'Log in' : 'Sign in',
-                        style: const TextStyle(
-                          decoration: TextDecoration.underline,
-                          decorationColor: Color(0xFFFF5F6D),
-                          color: Color(0xFFFF5F6D),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.0,
-                        ),
-                      ),
-                    ),
-                    // ),
                   ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

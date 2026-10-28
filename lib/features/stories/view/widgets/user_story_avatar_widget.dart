@@ -1,4 +1,7 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media/common/widgets/user_circular_avatar_widget.dart';
 import 'package:social_media/core/user_manager/current_user_provider.dart';
@@ -67,31 +70,23 @@ class UserStoryAvatarWidget extends StatelessWidget {
                 shape: BoxShape.circle,
                 child: Icon(Icons.add, size: 15, color: Colors.white),
               ),
-            Positioned.fill(
-              child: Center(
-                child: id.isEmpty
-                    ? SizedBox.shrink()
-                    : ValueListenableBuilder(
-                        valueListenable: context
-                            .read<StoryViewModel>()
-                            .stateNotifier,
-                        builder: (context, value, child) {
-                          if (value is AvatarLoadingState && value.id == id) {
-                            return SizedBox(
-                              width: 30,
-                              height: 30,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 3.0,
-                                color: const Color.fromARGB(213, 240, 177, 82),
-                              ),
-                            );
-                          }
+            if (id.isNotEmpty)
+              Positioned.fill(
+                child: Center(
+                  child: ValueListenableBuilder(
+                    valueListenable: context
+                        .read<StoryViewModel>()
+                        .stateNotifier,
+                    builder: (context, value, child) {
+                      if (value is AvatarLoadingState && value.id == id) {
+                        return CircularAvatarLoading(radius: 30);
+                      }
 
-                          return SizedBox.shrink();
-                        },
-                      ),
+                      return SizedBox.shrink();
+                    },
+                  ),
+                ),
               ),
-            ),
           ],
         ),
 

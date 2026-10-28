@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AuthHeaderWidget extends StatelessWidget {
-  const AuthHeaderWidget({super.key});
+  final bool isRegister;
+  const AuthHeaderWidget({super.key, required this.isRegister});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.sizeOf(context).width,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -15,7 +17,7 @@ class AuthHeaderWidget extends StatelessWidget {
             spreadRadius: 1,
           ),
         ],
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(120.0)),
+        // borderRadius: BorderRadius.only(bottomLeft: Radius.circular(120.0)),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -29,7 +31,31 @@ class AuthHeaderWidget extends StatelessWidget {
           ],
         ),
       ),
-      height: MediaQuery.sizeOf(context).height * 0.35,
+
+      height: MediaQuery.sizeOf(context).height * 0.4,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+
+        children: [
+          Text(
+            isRegister ? 'Sign up' : 'Sign in',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Color(0xFFf0f0f0),
+              fontSize: 42.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            isRegister
+                ? 'Create your account, to continue'
+                : 'Sign in to your Account to continue.',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Color(0XFFe0eafa), fontSize: 16.0),
+          ),
+        ],
+      ),
     );
   }
 }

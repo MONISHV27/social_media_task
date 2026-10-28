@@ -16,27 +16,19 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
 
       body: CustomScrollView(
+        reverse: true,
         slivers: [
           SliverFillRemaining(
-            hasScrollBody: false,
-
-            child: Column(
+            child: Stack(
+              alignment: Alignment.bottomCenter,
               children: [
-                // const Text(
-                //   'Welcome, Create a Account to continue!',
-                //   style: TextStyle(
-                //     color: Color.fromARGB(255, 131, 129, 130),
-                //     fontSize: 18.0,
-                //     fontWeight: FontWeight.w500,
-                //     fontStyle: FontStyle.italic,
-                //   ),
-                // ),
-                const AuthHeaderWidget(),
-                SizedBox(height: MediaQuery.sizeOf(context).height * 0.05),
+                Positioned(
+                  top: 0.0,
+                  child: const AuthHeaderWidget(isRegister: true),
+                ),
 
                 MultiProvider(
                   providers: [
@@ -56,7 +48,18 @@ class RegisterScreen extends StatelessWidget {
                       ),
                     ),
                   ],
-                  child: const AuthenticationComponenetWidget(isRegister: true),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24.0),
+                        topRight: Radius.circular(24.0),
+                      ),
+                    ),
+                    child: const AuthenticationComponenetWidget(
+                      isRegister: true,
+                    ),
+                  ),
                 ),
               ],
             ),

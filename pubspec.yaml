@@ -40,6 +40,7 @@ dependencies:
   dart_either: ^2.5.0
   video_player: ^2.14.1
   bcrypt: ^1.2.0
+  flutter_spinkit: ^5.2.2
 
 dev_dependencies:
   flutter_test:

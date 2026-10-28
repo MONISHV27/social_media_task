@@ -10,4 +10,5 @@ class ColorTheme {
     247,
   );
   static const Color textFieldLabelColor = Color(0xFF868f96);
+  static const Color iconSecondary = Color(0xFFb8c9e1);
 }
