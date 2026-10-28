@@ -4,6 +4,7 @@ import 'package:social_media/core/exceptions/auth_exceptions.dart';
 import 'package:social_media/features/authentication/login/data/models/register_model.dart';
 
 class LoginService {
+  const LoginService();
   Future<String> login(RegisterModel userInfo) async {
     final querySnapshot = await FirebaseFirestore.instance
         .collection('users')

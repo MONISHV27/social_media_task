@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:social_media/common/constants/spacing_constants.dart';
 import 'package:social_media/common/theme/field_border_style.dart';
-import 'package:social_media/common/widgets/form_builder_widgets/form_field_label_widget.dart';
+import 'package:social_media/common/widgets/textfield_label_widget.dart';
 import 'package:social_media/core/validators/validator_manager.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -35,21 +35,26 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        FormFieldLabelWidget(text: widget.label),
+        TextFieldLabelWidget(text: widget.label),
         const SizedBox(height: SpacingConstants.formFieldLabelSpacing),
-        TextFormField(
-          onTapOutside: (event) =>
-              FocusManager.instance.primaryFocus?.unfocus(),
-          onSaved: widget.onSave,
-          validator: (value) => widget.validator?.validate(value),
-          keyboardType: widget.keyboardType,
-          controller: _controller,
-          decoration: InputDecoration(
-            errorBorder: FieldBorderStyle.borderStyle,
-            focusedBorder: FieldBorderStyle.borderStyle,
-            disabledBorder: FieldBorderStyle.borderStyle,
-            enabledBorder: FieldBorderStyle.borderStyle,
-            border: FieldBorderStyle.borderStyle,
+        Material(
+          color: Colors.white,
+          elevation: 6.0,
+          shadowColor: Colors.black.withValues(alpha: 0.2),
+          child: TextFormField(
+            onTapOutside: (event) =>
+                FocusManager.instance.primaryFocus?.unfocus(),
+            onSaved: widget.onSave,
+            validator: (value) => widget.validator?.validate(value),
+            keyboardType: widget.keyboardType,
+            controller: _controller,
+            decoration: InputDecoration(
+              errorBorder: FieldBorderStyle.customFieldborderStyle,
+              focusedBorder: FieldBorderStyle.customFieldborderStyle,
+              disabledBorder: FieldBorderStyle.customFieldborderStyle,
+              enabledBorder: FieldBorderStyle.customFieldborderStyle,
+              border: FieldBorderStyle.customFieldborderStyle,
+            ),
           ),
         ),
       ],

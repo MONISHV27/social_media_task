@@ -3,6 +3,7 @@ import 'package:social_media/core/exceptions/auth_exceptions.dart';
 import 'package:social_media/features/authentication/login/data/models/register_model.dart';
 
 class RegisterService {
+  const RegisterService();
   Future<String> register(RegisterModel userInfo) async {
     final usersCollection = FirebaseFirestore.instance.collection('users');
 

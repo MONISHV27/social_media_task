@@ -7,6 +7,7 @@ import 'package:social_media/features/authentication/login/data/repository_impl/
 import 'package:social_media/features/authentication/login/data/services/login_service.dart';
 import 'package:social_media/features/authentication/login/data/services/register_service.dart';
 import 'package:social_media/features/authentication/login/view/widgets/authentication_component_widget.dart';
+import 'package:social_media/features/authentication/login/view/widgets/authentication_header_widget.dart';
 import 'package:social_media/features/authentication/login/view_model/authentication_viewmodel.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -15,53 +16,51 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white, //Color(0XFFEEEEEE)
       resizeToAvoidBottomInset: true,
-      body: Padding(
-        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-        child: CustomScrollView(
-          slivers: [
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Column(
-                spacing: 24.0,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Welcome, Log in to continue!',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 131, 129, 130),
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w500,
-                      fontStyle: FontStyle.italic,
+      body: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Column(
+              children: [
+                const AuthHeaderWidget(),
+
+                SizedBox(height: MediaQuery.sizeOf(context).height * 0.05),
+
+                // const Text(
+                //   'Welcome, Log in to continue!',
+                //   style: TextStyle(
+                //     color: Color.fromARGB(255, 131, 129, 130),
+                //     fontSize: 18.0,
+                //     fontWeight: FontWeight.w500,
+                //     fontStyle: FontStyle.italic,
+                //   ),
+                // ),
+                MultiProvider(
+                  providers: [
+                    Provider<LoginRepository>(
+                      create: (context) =>
+                          LoginRepositoryImpl(service: LoginService()),
                     ),
-                  ),
+                    Provider<RegisterRepository>(
+                      create: (context) =>
+                          RegisterRepositoryImpl(service: RegisterService()),
+                    ),
+                    Provider(
+                      create: (context) => AuthenticationViewmodel(
+                        loginRepository: context.read<LoginRepository>(),
+                        registerRepository: context.read<RegisterRepository>(),
+                      ),
+                    ),
+                  ],
 
-                  MultiProvider(
-                    providers: [
-                      Provider<LoginRepository>(
-                        create: (context) =>
-                            LoginRepositoryImpl(service: LoginService()),
-                      ),
-                      Provider<RegisterRepository>(
-                        create: (context) =>
-                            RegisterRepositoryImpl(service: RegisterService()),
-                      ),
-                      Provider(
-                        create: (context) => AuthenticationViewmodel(
-                          loginRepository: context.read<LoginRepository>(),
-                          registerRepository: context
-                              .read<RegisterRepository>(),
-                        ),
-                      ),
-                    ],
-
-                    child: const AuthenticationComponenetWidget(),
-                  ),
-                ],
-              ),
+                  child: const AuthenticationComponenetWidget(),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
