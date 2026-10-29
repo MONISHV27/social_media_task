@@ -22,8 +22,12 @@ class HomeScreen extends StatelessWidget {
         actions: [
           Material(
             color: Colors.transparent,
-            child: InkWell(
+            shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50.0),
+
+              side: BorderSide(color: Color(0xFFd4dfed)),
+            ),
+            child: InkWell(
               radius: 20.0,
               onTap: () => Navigator.push(
                 context,
@@ -37,10 +41,14 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 12.0),
+          const SizedBox(width: 6.0),
           Material(
             color: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50.0),
 
+              side: BorderSide(color: Color(0xFFd4dfed)),
+            ),
             child: InkWell(
               borderRadius: BorderRadius.circular(50.0),
               radius: 20.0,
@@ -57,7 +65,10 @@ class HomeScreen extends StatelessWidget {
         ],
         title: const Text(
           'Social hint',
-          style: TextStyle(fontStyle: FontStyle.italic),
+          style: TextStyle(
+            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.w500,
+          ),
         ),
         shape: LinearBorder.bottom(
           side: BorderSide(color: ColorTheme.borderColor, width: 2.0),

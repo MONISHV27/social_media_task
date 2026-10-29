@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:social_media/common/theme/color_themes.dart';
 import 'package:social_media/features/posts/view/widgets/comment_field_widget.dart';
 import 'package:social_media/features/posts/view/widgets/comment_widget.dart';
+import 'package:social_media/features/posts/view/widgets/post_interaction_widget.dart';
 import 'package:social_media/features/posts/view_model/comment_view_model.dart';
 
 class CommentBottomSheet extends StatelessWidget {
@@ -22,15 +23,15 @@ class CommentBottomSheet extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: 12.0,
+              horizontal: 4.0,
               vertical: 16.0,
             ),
             child: Row(
-              spacing: 12.0,
+              spacing: 4.0,
               children: [
-                InkWell(
+                PostInteractionWidget(
                   onTap: () => Navigator.pop(context),
-                  child: const Icon(Icons.arrow_back),
+                  icon: Icons.arrow_back,
                 ),
                 const Text(
                   'Comments',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media/core/user_manager/current_user_provider.dart';
 import 'package:social_media/features/posts/data/repositories/comment_repository.dart';
@@ -11,6 +12,7 @@ import 'package:social_media/features/stories/data/entities/story_entity.dart';
 import 'package:social_media/features/stories/data/services/story_comment_service.dart';
 import 'package:social_media/features/stories/data/services/story_like_service.dart';
 import 'package:social_media/features/stories/view/widgets/story_intercation_widget.dart';
+import 'package:social_media/features/stories/view_model/story_player_state_notifier.dart';
 import 'package:video_player/video_player.dart';
 
 class StoryPlayerWidget extends StatefulWidget {
@@ -23,17 +25,22 @@ class StoryPlayerWidget extends StatefulWidget {
 
 class _StoryPlayerWidgetState extends State<StoryPlayerWidget> {
   late VideoPlayerController _playerController;
-
+  late StoryPlayerStateNotifier<StoryPlayerState> _notifier;
   @override
   void initState() {
     super.initState();
+    _notifier = StoryPlayerStateNotifier(StoryLoadingState());
     _playerController = VideoPlayerController.asset(widget.path)
       ..initialize()
           .then((_) {
             debugPrint('--------------------initialized');
+            _notifier.value = StoryPlayingState();
+
             _playerController.play();
           })
           .onError((err, test) {
+            _notifier.value = StoryPlayErrorState();
+
             debugPrint('---------------------Error occured');
           });
   }
@@ -41,12 +48,14 @@ class _StoryPlayerWidgetState extends State<StoryPlayerWidget> {
   @override
   void dispose() {
     _playerController.dispose();
+    _notifier.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: Alignment.center,
       children: [
         AspectRatio(aspectRatio: 9 / 16, child: VideoPlayer(_playerController)),
         Positioned(
@@ -91,6 +100,22 @@ class _StoryPlayerWidgetState extends State<StoryPlayerWidget> {
               ),
             ],
             child: const StoryPlayerInteraction(),
+          ),
+        ),
+
+        Positioned(
+          child: ValueListenableBuilder<StoryPlayerState>(
+            valueListenable: _notifier,
+            builder: (context, value, child) => switch (value) {
+              StoryLoadingState() => SpinKitFadingCircle(
+                color: Color(0xFFDDDDDD),
+              ),
+              StoryPlayErrorState() => Text(
+                'Unable to load story!',
+                style: TextStyle(color: Colors.white),
+              ),
+              _ => SizedBox.shrink(),
+            },
           ),
         ),
       ],

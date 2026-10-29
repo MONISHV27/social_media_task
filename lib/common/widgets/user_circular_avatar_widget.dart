@@ -25,11 +25,14 @@ class UserCircularAvatar extends StatelessWidget {
         child: ClipOval(
           child: CircleAvatar(
             radius: radius - SpacingConstants.avatarSpacing,
-            backgroundColor: Color.fromARGB(255, 245, 245, 245),
+            backgroundColor: Color(0xFFfdfcfb),
             child: SizedBox(
               child: imgUrl != null
                   ? Image.asset(imgUrl ?? '')
-                  : Icon(Icons.person),
+                  : Icon(
+                      Icons.person_2_rounded,
+                      color: ColorTheme.iconSecondary,
+                    ),
             ),
           ),
         ),

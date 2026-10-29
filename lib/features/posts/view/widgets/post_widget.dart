@@ -28,10 +28,12 @@ class PostWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 14.0,
-              vertical: 10.0,
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 14.0,
+              right: 6.0,
+              top: 10.0,
+              bottom: 10.0,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,14 +53,43 @@ class PostWidget extends StatelessWidget {
                   ],
                 ),
 
-                InkWell(
-                  onTap: () => context.read<PostViewmodel>().loadPosts(
-                    context.read<CurrentUser>().userId,
-                  ),
-                  child: const Icon(
-                    Icons.more_vert_outlined,
-                    color: Color.fromARGB(221, 48, 48, 48),
-                  ),
+                Row(
+                  children: [
+                    Material(
+                      color: Color(0xFF3c8ce7),
+                      borderRadius: BorderRadius.circular(4.0),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14.0,
+                          vertical: 6.0,
+                        ),
+                        child: Text(
+                          'Follow',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(50.0),
+                        onTap: () => context.read<PostViewmodel>().loadPosts(
+                          context.read<CurrentUser>().userId,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: const Icon(
+                            Icons.more_vert_outlined,
+                            color: Color.fromARGB(221, 48, 48, 48),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -67,6 +98,11 @@ class PostWidget extends StatelessWidget {
             aspectRatio: 1.0,
             child: SizedBox(
               child: Image.asset(
+                frameBuilder: (context, child, frame, wasSynchronouslyLoaded) =>
+                    frame != null ? child : ColoredBox(color: Colors.black),
+
+                errorBuilder: (context, error, stackTrace) =>
+                    ColoredBox(color: Colors.black),
                 width: double.infinity,
                 fit: BoxFit.fill,
                 (postInfo.url != null
@@ -79,7 +115,7 @@ class PostWidget extends StatelessWidget {
             constraints: const BoxConstraints(minHeight: 60),
             padding: const EdgeInsets.symmetric(
               horizontal: 10.0,
-              vertical: 10.0,
+              vertical: 4.0,
             ),
 
             child: Row(
@@ -112,7 +148,7 @@ class PostWidget extends StatelessWidget {
                         builder: (context, value, child) {
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            spacing: 4.0,
+                            // spacing: 4.0,
                             children: [
                               PostInteractionWidget(
                                 onTap: () => context
@@ -155,11 +191,10 @@ class PostWidget extends StatelessWidget {
                       child: Builder(
                         builder: (context) {
                           return Column(
-                            spacing: 4.0,
+                            // spacing: 4.0,
                             children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                spacing: 4.0,
+                              Stack(
+                                clipBehavior: Clip.none,
                                 children: [
                                   PostInteractionWidget(
                                     onTap: () =>
@@ -168,10 +203,19 @@ class PostWidget extends StatelessWidget {
                                         ),
                                     icon: Icons.comment_outlined,
                                   ),
-                                  Text(
-                                    '${(context.watch<CommentViewModel>().comments.length)}',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                  Positioned(
+                                    right: 1,
+                                    child: Visibility(
+                                      visible: (context
+                                          .watch<CommentViewModel>()
+                                          .comments
+                                          .isNotEmpty),
+                                      child: Text(
+                                        '${(context.read<CommentViewModel>().comments.length)}',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -195,6 +239,7 @@ class PostWidget extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: 24.0),
         ],
       ),
     );
