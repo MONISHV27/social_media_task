@@ -11,4 +11,14 @@ class ColorTheme {
   );
   static const Color textFieldLabelColor = Color(0xFF868f96);
   static const Color iconSecondary = Color(0xFFb8c9e1);
+  static const LinearGradient buttonColor = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0xFFFF5F6D), Color(0XFFFFc371)],
+  );
+  static const LinearGradient authHeaderColor = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0XFFEF629A), Color(0XFFEECDA1)],
+  );
 }

@@ -30,7 +30,7 @@ class AuthenticationComponenetWidget extends StatelessWidget {
             MediaQuery.sizeOf(context).height * SizeConstants.authContentSize,
 
         child: DecoratedBox(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(24.0),
@@ -40,7 +40,6 @@ class AuthenticationComponenetWidget extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
               children:
                   [
                         const SizedBox(
@@ -140,8 +139,8 @@ class AuthenticationComponenetWidget extends StatelessWidget {
                                         isLoading:
                                             (value is AuthProcessingState),
                                         label: isRegister
-                                            ? 'Register'
-                                            : 'Login',
+                                            ? 'Sign up'
+                                            : 'Sign in',
                                       );
                                     },
                                   ),
@@ -171,7 +170,7 @@ class AuthenticationComponenetWidget extends StatelessWidget {
                                     context,
                                   ),
                                   child: Text(
-                                    (isRegister) ? 'Log in' : 'Sign in',
+                                    (isRegister) ? 'Sign in' : 'Sign up',
                                     style: const TextStyle(
                                       decoration: TextDecoration.underline,
                                       decorationColor: Color(0xFFFF5F6D),

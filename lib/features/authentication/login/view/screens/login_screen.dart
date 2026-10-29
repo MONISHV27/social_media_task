@@ -16,13 +16,9 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, //Color(0XFFEEEEEE)
-      // resizeToAvoidBottomInset: true,
       body: CustomScrollView(
-        // reverse: true,
         slivers: [
           SliverFillRemaining(
-            // hasScrollBody: false,
             child: Stack(
               alignment: Alignment.bottomCenter,
 

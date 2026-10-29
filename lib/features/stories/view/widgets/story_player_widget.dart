@@ -107,14 +107,14 @@ class _StoryPlayerWidgetState extends State<StoryPlayerWidget> {
           child: ValueListenableBuilder<StoryPlayerState>(
             valueListenable: _notifier,
             builder: (context, value, child) => switch (value) {
-              StoryLoadingState() => SpinKitFadingCircle(
+              StoryLoadingState() => const SpinKitFadingCircle(
                 color: Color(0xFFDDDDDD),
               ),
-              StoryPlayErrorState() => Text(
+              StoryPlayErrorState() => const Text(
                 'Unable to load story!',
                 style: TextStyle(color: Colors.white),
               ),
-              _ => SizedBox.shrink(),
+              _ => const SizedBox.shrink(),
             },
           ),
         ),

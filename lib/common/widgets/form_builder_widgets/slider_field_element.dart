@@ -31,6 +31,9 @@ class _SliderFieldElementState extends State<SliderFieldElement> {
               valueListenable: _value,
               builder: (context, value, child) {
                 return Slider(
+                  thumbColor: Color(0xFF222222),
+                  activeColor: Color(0xFF12063b),
+                  inactiveColor: Color(0xFFd4dfed),
                   value: value,
                   onChanged: (val) {
                     _value.value = val;

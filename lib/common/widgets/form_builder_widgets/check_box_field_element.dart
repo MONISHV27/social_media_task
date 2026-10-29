@@ -1,52 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:social_media/common/constants/spacing_constants.dart';
+import 'package:social_media/common/theme/field_border_style.dart';
 import 'package:social_media/common/widgets/form_builder_widgets/form_field_label_widget.dart';
 import 'package:social_media/common/widgets/form_builder_widgets/radio_field_element.dart';
 import 'package:social_media/features/form_builder/data/form_element_models/checkbox_multi_field_metadata.dart';
 import 'package:social_media/features/form_builder/view/widgets/form_field_mapper.dart';
-
-class CheckboxFieldElement extends StatelessWidget {
-  const CheckboxFieldElement({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return FormFieldElementMapper(
-      formKey: '',
-      //  onReset: () => _controller.clear(),
-      // initialValue: widget.initialValue,
-      // autovalidateMode: AutovalidateMode.onUserInteraction,
-      // validator: (value) {
-      //   // return widget.dependency.validate(value);
-      // },
-      // onSaved: (value) {
-      //   // if (widget.onFormSaved != null) {
-      //   //   widget.onFormSaved!(value ?? '');
-      //   // }
-      // },
-      formbuilder: (state) {
-        // if (state.hasError) {
-        //   WidgetsBinding.instance.addPostFrameCallback((_) {
-        //     _errorTextNotifier.value = state.errorText;
-        //   });
-        // }
-        // if (_errorTextNotifier.value != null &&
-        //     !state.hasError &&
-        //     (_errorTextNotifier.value ?? '').isNotEmpty) {
-        //   WidgetsBinding.instance.addPostFrameCallback((_) {
-        //     _errorTextNotifier.value = state.errorText;
-        //   });
-
-        return Column(
-          children: [
-            CheckboxListTile(onChanged: (val) {}, value: null),
-            if (state.hasError) FieldErrorText(text: state.errorText ?? ''),
-          ],
-        );
-      },
-    );
-    // builder:(context)=> Checkbox(value: value, onChanged: onChanged));
-  }
-}
 
 class CheckboxMultiFieldElement extends StatefulWidget {
   final CheckBoxMultiFieldMetadata metaData;
@@ -71,6 +29,14 @@ class _CheckboxMultiFieldElementState extends State<CheckboxMultiFieldElement> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           DropdownButtonFormField(
+            dropdownColor: Color(0xFFfdfcfb),
+            decoration: InputDecoration(
+              errorBorder: FieldBorderStyle.customFieldborderStyle,
+              focusedBorder: FieldBorderStyle.customFieldborderStyle,
+              disabledBorder: FieldBorderStyle.customFieldborderStyle,
+              enabledBorder: FieldBorderStyle.customFieldborderStyle,
+              border: FieldBorderStyle.customFieldborderStyle,
+            ),
             hint: FormFieldLabelWidget(text: widget.metaData.label ?? ''),
 
             onChanged: (x) {},
@@ -98,12 +64,20 @@ class _CheckboxMultiFieldElementState extends State<CheckboxMultiFieldElement> {
                         children: [
                           IgnorePointer(
                             child: Checkbox(
+                              activeColor: Color(0xFFfec163),
                               value: selected.contains(e),
                               onChanged: (bool? checked) {},
                             ),
                           ),
                           const SizedBox(width: 8),
-                          Text(e, style: const TextStyle(fontSize: 16)),
+                          Text(
+                            e,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Color(0xFF575757),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ],
                       ),
                     );
@@ -117,8 +91,12 @@ class _CheckboxMultiFieldElementState extends State<CheckboxMultiFieldElement> {
             const SizedBox(height: SpacingConstants.formFieldErrorSpacing),
 
             Text(
-              selected.isEmpty ? '' : 'Select items: ${selected.join(' , ')}',
-              style: const TextStyle(fontSize: 16),
+              selected.isEmpty ? '' : 'Selected: ${selected.join(' , ')}',
+              style: const TextStyle(
+                fontSize: 16,
+                color: Color(0xFF575757),
+                fontWeight: FontWeight.w500,
+              ),
             ),
           },
 
@@ -128,5 +106,26 @@ class _CheckboxMultiFieldElementState extends State<CheckboxMultiFieldElement> {
       ),
       formKey: widget.metaData.key,
     );
+  }
+}
+
+class CheckboxFieldElement extends StatelessWidget {
+  const CheckboxFieldElement({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FormFieldElementMapper(
+      formKey: '',
+
+      formbuilder: (state) {
+        return Column(
+          children: [
+            CheckboxListTile(onChanged: (val) {}, value: null),
+            if (state.hasError) FieldErrorText(text: state.errorText ?? ''),
+          ],
+        );
+      },
+    );
+    // builder:(context)=> Checkbox(value: value, onChanged: onChanged));
   }
 }

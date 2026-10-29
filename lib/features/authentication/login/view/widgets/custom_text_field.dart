@@ -51,13 +51,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
               FocusManager.instance.primaryFocus?.unfocus(),
           onSaved: widget.onSave,
           validator: (value) => widget.validator?.validate(value),
-          keyboardType: widget.keyboardType,
+          keyboardType: widget.keyboardType ?? TextInputType.text,
           controller: _controller,
           cursorErrorColor: Color(0xFF949db0),
           cursorColor: Color(0xFF949db0),
+          enableSuggestions: false,
           decoration: InputDecoration(
             focusedErrorBorder: FieldBorderStyle.customFieldborderStyle,
             helperText: '',
+
             errorStyle: TextStyle(color: Colors.red, fontSize: 12.5),
             prefixIconColor: ColorTheme.iconSecondary,
             prefixIcon: Icon(widget.prefixIcon),

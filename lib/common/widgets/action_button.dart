@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:social_media/common/theme/color_themes.dart';
 
 class ActionButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -59,19 +60,7 @@ class ActionGradientButton extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25.0),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              // Color(0XFFFFF6B7), Color(0XFFF6416C),
-              ////
-              // Color(0XFFEF629A),
-              // Color(0XFFEECDA1),
-              // Color(0XFFF1A7F1),
-              // Color(0XFFFAD0C4),
-              Color(0xFFFF5F6D), Color(0XFFFFc371),
-            ],
-          ),
+          gradient: ColorTheme.buttonColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

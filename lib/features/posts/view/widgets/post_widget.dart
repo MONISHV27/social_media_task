@@ -57,9 +57,11 @@ class PostWidget extends StatelessWidget {
                   children: [
                     Material(
                       color: Color(0xFF3c8ce7),
-                      borderRadius: BorderRadius.circular(4.0),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(4.0),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
                           horizontal: 14.0,
                           vertical: 6.0,
                         ),
@@ -76,7 +78,9 @@ class PostWidget extends StatelessWidget {
                     Material(
                       color: Colors.transparent,
                       child: InkWell(
-                        borderRadius: BorderRadius.circular(50.0),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(50.0),
+                        ),
                         onTap: () => context.read<PostViewmodel>().loadPosts(
                           context.read<CurrentUser>().userId,
                         ),
@@ -99,10 +103,12 @@ class PostWidget extends StatelessWidget {
             child: SizedBox(
               child: Image.asset(
                 frameBuilder: (context, child, frame, wasSynchronouslyLoaded) =>
-                    frame != null ? child : ColoredBox(color: Colors.black),
+                    frame != null
+                    ? child
+                    : const ColoredBox(color: Colors.black),
 
                 errorBuilder: (context, error, stackTrace) =>
-                    ColoredBox(color: Colors.black),
+                    const ColoredBox(color: Colors.black),
                 width: double.infinity,
                 fit: BoxFit.fill,
                 (postInfo.url != null
@@ -161,7 +167,6 @@ class PostWidget extends StatelessWidget {
                                     ? Icons.favorite
                                     : Icons.favorite_outline,
                               ),
-                              // if (context.read<LikeViewModel>().likes != 0)
                               Text(
                                 'Likes ${(context.read<LikeViewModel>().likes == 0 ? '' : context.read<LikeViewModel>().likes)}',
                                 style: const TextStyle(
@@ -191,7 +196,6 @@ class PostWidget extends StatelessWidget {
                       child: Builder(
                         builder: (context) {
                           return Column(
-                            // spacing: 4.0,
                             children: [
                               Stack(
                                 clipBehavior: Clip.none,
@@ -239,7 +243,7 @@ class PostWidget extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 24.0),
+          const SizedBox(height: 24.0),
         ],
       ),
     );

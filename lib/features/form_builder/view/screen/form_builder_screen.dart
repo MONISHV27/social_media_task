@@ -60,18 +60,21 @@ class FormBuilderScreen extends StatelessWidget {
                               );
                             },
                             separatorBuilder: (context, index) =>
-                                const SizedBox(height: 8.0),
+                                const SizedBox(height: 16.0),
                           ),
                         ],
                       ),
                     ),
                   ),
 
-                  ColoredBox(
+                  Material(
+                    shape: LinearBorder.top(
+                      side: const BorderSide(color: Color(0xFFDDDDDD)),
+                    ),
                     color: const Color.fromARGB(255, 253, 252, 252),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                        vertical: 8.0,
+                        vertical: 12.0,
                         horizontal: 16.0,
                       ),
                       child: ActionButton(
@@ -81,7 +84,9 @@ class FormBuilderScreen extends StatelessWidget {
                           if (Form.of(context).validate()) {
                             Form.of(context).save();
                             // Retrieve the Form data
-                            print(context.read<FormProvider>().formData);
+                            final formMetadata = context
+                                .read<FormProvider>()
+                                .formData;
                           }
                         },
                       ),

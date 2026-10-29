@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_media/common/constants/spacing_constants.dart';
+import 'package:social_media/common/theme/field_border_style.dart';
 import 'package:social_media/common/widgets/form_builder_widgets/form_field_label_widget.dart';
 import 'package:social_media/common/widgets/form_builder_widgets/radio_field_element.dart';
 import 'package:social_media/features/form_builder/data/form_element_models/dropdown_field_metadata.dart';
@@ -30,10 +31,24 @@ class _DropdownFieldElementState extends State<DropdownFieldElement> {
               const SizedBox(height: SpacingConstants.formFieldLabelSpacing),
 
               DropdownMenu<String>(
+                inputDecorationTheme: const InputDecorationTheme(
+                  errorBorder: FieldBorderStyle.customFieldborderStyle,
+                  focusedBorder: FieldBorderStyle.customFieldborderStyle,
+                  disabledBorder: FieldBorderStyle.customFieldborderStyle,
+                  enabledBorder: FieldBorderStyle.customFieldborderStyle,
+                  border: FieldBorderStyle.customFieldborderStyle,
+                ),
                 requestFocusOnTap: false,
                 width: double.infinity,
+                menuStyle: MenuStyle(
+                  backgroundColor: WidgetStateProperty.all(Color(0xFFfdfcfb)),
+                ),
                 // initialSelection: selectedItem,
                 hintText: 'Select a ${widget.metaData.label}',
+                textStyle: TextStyle(
+                  color: Color(0xFF575757),
+                  fontWeight: FontWeight.w500,
+                ),
                 enableSearch: true, // Enables searching text within the menu
                 onSelected: (String? newValue) {
                   // setState(() {

@@ -16,10 +16,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-
       body: CustomScrollView(
-        reverse: true,
         slivers: [
           SliverFillRemaining(
             child: Stack(
@@ -48,18 +45,7 @@ class RegisterScreen extends StatelessWidget {
                       ),
                     ),
                   ],
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(24.0),
-                        topRight: Radius.circular(24.0),
-                      ),
-                    ),
-                    child: const AuthenticationComponenetWidget(
-                      isRegister: true,
-                    ),
-                  ),
+                  child: const AuthenticationComponenetWidget(isRegister: true),
                 ),
               ],
             ),
