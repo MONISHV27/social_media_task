@@ -16,12 +16,20 @@ class PostInteractionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Icon(
-        icon,
-        color: color ?? const Color.fromARGB(221, 48, 48, 48),
-        size: size,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(50.0),
+
+        onTap: onTap,
+        child: Padding(
+          padding: EdgeInsetsGeometry.all(8.0),
+          child: Icon(
+            icon,
+            color: color ?? const Color.fromARGB(221, 48, 48, 48),
+            size: size,
+          ),
+        ),
       ),
     );
   }

@@ -12,6 +12,11 @@ class FormBuilderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          splashRadius: 28.0,
+          onPressed: () => Navigator.pop(context),
+        ),
         centerTitle: true,
         backgroundColor: Colors.white,
         title: const Text(

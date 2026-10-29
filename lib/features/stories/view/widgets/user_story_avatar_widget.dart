@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:social_media/common/widgets/user_circular_avatar_widget.dart';
 import 'package:social_media/core/user_manager/current_user_provider.dart';
 import 'package:social_media/features/stories/data/entities/story_entity.dart';
+import 'package:social_media/features/stories/data/entities/story_play_entity.dart';
 import 'package:social_media/features/stories/view/screen/story_screen.dart';
 import 'package:social_media/features/stories/view_model/story_view_model.dart';
 
@@ -27,39 +28,44 @@ class UserStoryAvatarWidget extends StatelessWidget {
           alignment: Alignment.bottomRight,
           children: [
             GestureDetector(
-              onTap: () async {
-                if (context.read<StoryViewModel>().state
-                    is AvatarLoadingState) {
-                  return;
-                }
-                final userInstance = context.read<CurrentUser>();
-                final String path = context
-                    .read<StoryViewModel>()
-                    .storyId
-                    .firstWhere((e) => e.id == id)
-                    .path;
-                final StoryEntity? entity = await context
-                    .read<StoryViewModel>()
-                    .getStory(userInstance.userId, id);
+              onTap: isUpload
+                  ? null
+                  : () async {
+                      if (context.read<StoryViewModel>().state
+                          is AvatarLoadingState) {
+                        return;
+                      }
+                      final userInstance = context.read<CurrentUser>();
+                      final path = context.read<StoryPlayEntity>().path;
+                      final StoryEntity? entity = await context
+                          .read<StoryViewModel>()
+                          .getStory(userInstance.userId, id);
 
-                if (!context.mounted) return;
-                if (entity != null) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MultiProvider(
-                        providers: [
-                          Provider<CurrentUser>.value(value: userInstance),
-                          Provider<StoryEntity>.value(value: entity),
-                          Provider<String>.value(value: path),
-                        ],
-                        child: const StoryScreen(),
-                      ),
-                    ),
-                  );
-                }
-              },
-              child: const UserCircularAvatar(radius: 30),
+                      if (!context.mounted) return;
+                      if (entity != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MultiProvider(
+                              providers: [
+                                Provider<CurrentUser>.value(
+                                  value: userInstance,
+                                ),
+                                Provider<StoryEntity>.value(value: entity),
+                                Provider<String>.value(value: path),
+                              ],
+                              child: const StoryScreen(),
+                            ),
+                          ),
+                        );
+                      }
+                    },
+              child: UserCircularAvatar(
+                radius: 30,
+                imgUrl: isUpload
+                    ? null
+                    : context.read<StoryPlayEntity>().thumbnailUrl,
+              ),
             ),
             if (isUpload)
               const PhysicalModel(

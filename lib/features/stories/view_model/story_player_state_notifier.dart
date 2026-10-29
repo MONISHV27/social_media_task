@@ -1,10 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
-class StoryPlayerStateNotifier extends ValueNotifier {
+class StoryPlayerStateNotifier<T> extends ValueNotifier<T> {
   StoryPlayerStateNotifier(super.value);
 }
 
 sealed class StoryPlayerState {}
+
+final class StoryPlayInitialState extends StoryPlayerState {}
 
 final class StoryLoadingState extends StoryPlayerState {}
 

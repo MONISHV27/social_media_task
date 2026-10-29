@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:social_media/common/theme/color_themes.dart';
 import 'package:social_media/features/posts/view/widgets/post_widget.dart';
 import 'package:social_media/features/posts/view_model/post_viewmodel.dart';
 

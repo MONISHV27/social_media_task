@@ -18,30 +18,57 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         actionsPadding: const EdgeInsets.only(right: 14.0),
         actions: [
-          InkWell(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const FormBuilderScreen(),
+          Material(
+            color: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50.0),
+
+              side: BorderSide(color: Color(0xFFd4dfed)),
+            ),
+            child: InkWell(
+              radius: 20.0,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const FormBuilderScreen(),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: const Icon(Icons.receipt_long_rounded),
               ),
             ),
-            child: const Icon(Icons.receipt_long_rounded),
           ),
-          const SizedBox(width: 12.0),
-          InkWell(
-            onTap: () => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()),
+          const SizedBox(width: 6.0),
+          Material(
+            color: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50.0),
+
+              side: BorderSide(color: Color(0xFFd4dfed)),
             ),
-            child: const Icon(Icons.logout_outlined),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(50.0),
+              radius: 20.0,
+              onTap: () => Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: const Icon(Icons.logout_outlined),
+              ),
+            ),
           ),
         ],
         title: const Text(
           'Social hint',
-          style: TextStyle(fontStyle: FontStyle.italic),
+          style: TextStyle(
+            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.w500,
+          ),
         ),
         shape: LinearBorder.bottom(
           side: BorderSide(color: ColorTheme.borderColor, width: 2.0),

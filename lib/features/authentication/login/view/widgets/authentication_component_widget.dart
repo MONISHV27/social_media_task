@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media/common/constants/size_constants.dart';
 import 'package:social_media/common/constants/spacing_constants.dart';
@@ -188,8 +187,8 @@ class AuthenticationComponenetWidget extends StatelessWidget {
                           ],
                         ),
                       ]
-                      .animate(interval: 140.ms)
-                      .fade(duration: 300.ms, curve: Curves.easeIn),
+                      .animate(interval: 150.ms)
+                      .fade(duration: 400.ms, curve: Curves.easeIn),
             ),
           ),
         ),

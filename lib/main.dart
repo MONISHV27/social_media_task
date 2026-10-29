@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:social_media/core/utils/page_transition_helper.dart';
 import 'package:social_media/features/authentication/login/view/screens/login_screen.dart';
-import 'package:social_media/features/home/view/screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +21,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          scrolledUnderElevation: 0,
+          backgroundColor: Colors.white,
+        ),
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: <TargetPlatform, PageTransitionsBuilder>{
+            TargetPlatform.android: CustomSlideFadeTransitionsBuilder(),
+          },
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       home: const LoginScreen(),
     );
