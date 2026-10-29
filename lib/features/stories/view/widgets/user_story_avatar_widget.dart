@@ -1,7 +1,4 @@
-import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media/common/widgets/user_circular_avatar_widget.dart';
 import 'package:social_media/core/user_manager/current_user_provider.dart';

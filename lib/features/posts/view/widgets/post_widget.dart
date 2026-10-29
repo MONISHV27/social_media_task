@@ -71,7 +71,7 @@ class PostWidget extends StatelessWidget {
                 fit: BoxFit.fill,
                 (postInfo.url != null
                     ? 'assets/images/${postInfo.url}'
-                    : 'assets/images/img_01.jpg'),
+                    : 'assets/images/img_01.png'),
               ),
             ),
           ),
