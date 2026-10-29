@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_media/common/constants/size_constants.dart';
 
 class AuthHeaderWidget extends StatelessWidget {
   final bool isRegister;
@@ -17,7 +18,6 @@ class AuthHeaderWidget extends StatelessWidget {
             spreadRadius: 1,
           ),
         ],
-        // borderRadius: BorderRadius.only(bottomLeft: Radius.circular(120.0)),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -32,9 +32,9 @@ class AuthHeaderWidget extends StatelessWidget {
         ),
       ),
 
-      height: MediaQuery.sizeOf(context).height * 0.4,
+      height: MediaQuery.sizeOf(context).height * SizeConstants.authHeaderSize,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.stretch,
 
         children: [
@@ -53,6 +53,14 @@ class AuthHeaderWidget extends StatelessWidget {
                 : 'Sign in to your Account to continue.',
             textAlign: TextAlign.center,
             style: TextStyle(color: Color(0XFFe0eafa), fontSize: 16.0),
+          ),
+          SizedBox(height: 32.0),
+          SizedBox(
+            height:
+                MediaQuery.sizeOf(context).height *
+                ((SizeConstants.authContentSize +
+                        SizeConstants.authHeaderSize) -
+                    1),
           ),
         ],
       ),
