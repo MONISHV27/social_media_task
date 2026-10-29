@@ -5,7 +5,7 @@ class FormBuilderJson {
       {
         "element": "text_field",
         "field_type": 'email',
-        "label": "Full Name",
+        "label": "Email",
         "placeholder": "Enter your full name",
         "required": true,
         "min": 3,
@@ -15,7 +15,7 @@ class FormBuilderJson {
       {
         "element": "text_field",
         "field_type": 'normal',
-        "label": "Age",
+        "label": "Name",
         "required": true,
         "min": 18,
         "max": 60,

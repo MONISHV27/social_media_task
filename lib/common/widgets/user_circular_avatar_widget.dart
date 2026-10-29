@@ -16,20 +16,32 @@ class UserCircularAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: BoxDecoration(
-        border: Border.all(color: ColorTheme.avatarBorderColor, width: 1.5),
+      decoration: const BoxDecoration(
+        border: Border.fromBorderSide(
+          BorderSide(color: ColorTheme.avatarBorderColor, width: 1.5),
+        ),
         shape: BoxShape.circle,
       ),
       child: Padding(
-        padding: EdgeInsetsGeometry.all(SpacingConstants.avatarSpacing),
+        padding: const EdgeInsetsGeometry.all(SpacingConstants.avatarSpacing),
         child: ClipOval(
           child: CircleAvatar(
             radius: radius - SpacingConstants.avatarSpacing,
             backgroundColor: Color(0xFFfdfcfb),
             child: SizedBox(
               child: imgUrl != null
-                  ? Image.asset(imgUrl ?? '')
-                  : Icon(
+                  ? Image.asset(
+                      imgUrl ?? '',
+                      frameBuilder:
+                          (context, child, frame, wasSynchronouslyLoaded) =>
+                              frame != null
+                              ? child
+                              : const ColoredBox(color: Colors.black),
+
+                      errorBuilder: (context, error, stackTrace) =>
+                          const ColoredBox(color: Colors.black),
+                    )
+                  : const Icon(
                       Icons.person_2_rounded,
                       color: ColorTheme.iconSecondary,
                     ),
@@ -48,9 +60,9 @@ class CircularAvatarLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsGeometry.all(SpacingConstants.avatarSpacing),
+      padding: const EdgeInsetsGeometry.all(SpacingConstants.avatarSpacing),
       child: DecoratedBox(
-        decoration: BoxDecoration(shape: BoxShape.circle),
+        decoration: const BoxDecoration(shape: BoxShape.circle),
         child: CircleAvatar(
           backgroundColor: Colors.transparent,
           radius: radius - SpacingConstants.avatarSpacing,

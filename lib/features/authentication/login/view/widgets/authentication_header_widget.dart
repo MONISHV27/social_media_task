@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_media/common/constants/size_constants.dart';
+import 'package:social_media/common/theme/color_themes.dart';
 
 class AuthHeaderWidget extends StatelessWidget {
   final bool isRegister;
@@ -18,18 +19,7 @@ class AuthHeaderWidget extends StatelessWidget {
             spreadRadius: 1,
           ),
         ],
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            // Color(0XFFFFF6B7), Color(0XFFF6416C),
-            Color(0XFFEF629A),
-            Color(0XFFEECDA1),
-
-            // Color(0XFFF1A7F1),
-            // Color(0XFFFAD0C4)
-          ],
-        ),
+        gradient: ColorTheme.authHeaderColor,
       ),
 
       height: MediaQuery.sizeOf(context).height * SizeConstants.authHeaderSize,

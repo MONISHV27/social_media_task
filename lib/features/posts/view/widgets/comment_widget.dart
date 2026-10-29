@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:social_media/common/theme/color_themes.dart';
 import 'package:social_media/features/posts/data/entities/comment_entity.dart';
 
 class CommentWidget extends StatelessWidget {
@@ -12,10 +13,21 @@ class CommentWidget extends StatelessWidget {
         Row(
           spacing: 12.0,
           children: [
-            const CircleAvatar(
-              radius: 12.0,
-              backgroundColor: Color.fromARGB(255, 236, 235, 235),
-              child: Icon(Icons.person),
+            Material(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+
+                side: BorderSide(color: Color(0xFFDDDDDD)),
+              ),
+              child: const CircleAvatar(
+                radius: 13.0,
+                backgroundColor: Color(0xFFfdfcfb),
+                child: Icon(
+                  Icons.person,
+                  size: 16.0,
+                  color: ColorTheme.iconSecondary,
+                ),
+              ),
             ),
 
             Column(

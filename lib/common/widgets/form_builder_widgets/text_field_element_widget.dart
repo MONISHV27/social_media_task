@@ -45,12 +45,20 @@ class _TextFieldElementState extends State<TextFieldElement> {
         const SizedBox(height: SpacingConstants.formFieldLabelSpacing),
 
         TextFormField(
+          style: TextStyle(
+            color: Color(0xFF575757),
+            fontWeight: FontWeight.w500,
+          ),
+
           errorBuilder: (context, errorText) => FieldErrorText(text: errorText),
           controller: _controller,
           onSaved: (newValue) =>
               (context.read<FormProvider>().onSave(widget.data.key, newValue)),
           validator: (value) => widget.data.validator?.validate(value),
           decoration: InputDecoration(
+            focusedErrorBorder: FieldBorderStyle.borderStyle,
+            errorStyle: TextStyle(color: Colors.red, fontSize: 13.0),
+            hintText: '',
             errorBorder: FieldBorderStyle.borderStyle,
             focusedBorder: FieldBorderStyle.borderStyle,
             disabledBorder: FieldBorderStyle.borderStyle,
@@ -62,12 +70,3 @@ class _TextFieldElementState extends State<TextFieldElement> {
     );
   }
 }
-
-// class SliderFieldElement extends StatelessWidget {
-//   const SliderFieldElement({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Slider(value: value, onChanged: onChanged);
-//   }
-// }

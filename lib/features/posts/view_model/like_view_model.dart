@@ -13,14 +13,14 @@ class LikeViewModel extends ChangeNotifier {
   String? id;
   String postId;
   final String userId;
-  final PostLikeRepository _repository;
+  final PostLikeRepository repository;
   PostInteractionState _currentUiState = PostInteractionInitialState();
 
   PostInteractionState get uiState => _currentUiState;
   LikeViewModel({
     required this.isLike,
     required this.likes,
-    required this._repository,
+    required this.repository,
     required this.id,
     required this.postId,
     required this.userId,
@@ -28,7 +28,7 @@ class LikeViewModel extends ChangeNotifier {
 
   Future<void> _onLikePost() async {
     _currentUiState = PostInteractionProcessingState();
-    final result = await _repository.likePost(postId: postId, userId: userId);
+    final result = await repository.likePost(postId: postId, userId: userId);
 
     result.fold(
       ifLeft: (failure) {},
@@ -41,7 +41,7 @@ class LikeViewModel extends ChangeNotifier {
   }
 
   Future<void> _disLikePost() async {
-    final result = await _repository.unLikePost(
+    final result = await repository.unLikePost(
       likeId: id ?? '',
       postId: postId,
     );

@@ -20,7 +20,7 @@ class _RadioFieldElementState extends State<RadioFieldElement> {
       formKey: widget.metaData.key,
       validator: (value) {
         if (widget.metaData.required && (_notifier.value == null)) {
-          return 'select a gender';
+          return 'Select a gender';
         }
         return null;
       },
@@ -50,8 +50,16 @@ class _RadioFieldElementState extends State<RadioFieldElement> {
                             index,
                           ) {
                             return RadioListTile<int>(
+                              activeColor: Color(0xFFff512f),
                               value: index,
-                              title: Text(widget.metaData.options[index]),
+                              title: Text(
+                                widget.metaData.options[index],
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                  color: Color(0xFF575757),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             );
                           }),
                         ],
@@ -83,7 +91,7 @@ class FieldErrorText extends StatelessWidget {
       text,
 
       textAlign: TextAlign.left,
-      style: const TextStyle(color: Colors.red),
+      style: const TextStyle(color: Colors.red, fontSize: 13.0),
     );
   }
 }
