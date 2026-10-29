@@ -40,7 +40,7 @@ class PostWidget extends StatelessWidget {
                   spacing: 8.0,
 
                   children: [
-                    const UserCircularAvatar(radius: 20.0),
+                    const UserCircularAvatar(radius: 20.0, imgUrl: null),
                     Text(
                       postInfo.name,
                       style: const TextStyle(

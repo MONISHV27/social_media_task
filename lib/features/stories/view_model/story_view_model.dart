@@ -35,22 +35,27 @@ class StoryViewModel {
     StoryPlayEntity(
       id: "8STiwGb4Erpnza3KPGhv",
       path: 'assets/videos/video_01.mp4',
+      thumbnailUrl: 'assets/images/thumbnail_01.png',
     ),
     StoryPlayEntity(
       id: "CEKzlGmrje4W6X5RTtyU",
       path: 'assets/videos/video_02.mp4',
+      thumbnailUrl: 'assets/images/thumbnail_02.png',
     ),
     StoryPlayEntity(
       id: "Gk7a0vHCxecMzS6dm48T",
       path: 'assets/videos/video_03.mp4',
+      thumbnailUrl: 'assets/images/thumbnail_03.png',
     ),
     StoryPlayEntity(
       id: "MpQR9q5HsxB0PvoGs4Dy",
       path: 'assets/videos/video_04.mp4',
+      thumbnailUrl: 'assets/images/thumbnail_04.png',
     ),
     StoryPlayEntity(
       id: "qdbpsu4fLycbuFGea1q1",
       path: 'assets/videos/video_05.mp4',
+      thumbnailUrl: 'assets/images/thumbnail_05.png',
     ),
   ];
 
